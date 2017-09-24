@@ -1,16 +1,99 @@
 <html>
 <head>
-<title>
-
-</title>
+<title>TWITCH STREAMERS</title>
+<style>
+	body{
+		margin:0;
+		background:#DBE3EE;
+		
+	}
+	
+	.wrapper-outer {
+		    background: #3F5F89;
+			width: 70%;
+			margin: auto;
+			
+		
+	}
+	
+	.header{
+		text-align:center;
+		font-size:3em;
+		
+	}
+	
+	.status-bar{
+		background:#9CB1D1;
+		text-align:center;
+		
+	
+	}
+	
+	.status-bar li{
+		display: inline;
+		margin: 20px;
+	}
+	
+	table {
+		width:100%;
+		text-align:center;
+	
+	}
+	
+	table td{
+		padding:10px;
+	
+	}
+	/*.content-wrapper ul{
+		margin:0;
+		padding:0;
+		list-style:none;	
+	}
+	
+	
+	.content-wrapper li{
+		display:flex;
+		
+	
+	}
+	
+	img{
+		margin:20px;
+	}
+*/
+</style>
 </head>
 <body>
-	<div>
-		<h1>TWITCH STREAMERS</h1>
-		<div>
+	<div class='wrapper-outer'>
+		<div class='header'>TWITCH STREAMERS</div>
 		
-		</div>
-	
+		<form>
+			<div class='status-bar'>
+				<li><input type=radio id='offline' name='status' value='offline' /><label>Offline</label></li>
+				<li><input type=radio id='online' name='status' value='Online' /><label>Online</label></li>
+				<li><input type=radio id='Offline' name='status' value='All' /><label>All Channel</label></li>
+			</div>
+		</form>
+		
+		
+		
+		<table class='content-wrapper'>
+			<tr>
+				<td><img src='freecodecamp.png' class='channel-icon' /></td>
+				<td><a href="#" class='channel-name'>FreeCodeCamp</a></td>
+				<td>offline/online</td>
+			</tr>	
+			<tr>
+				<td><img src='freecodecamp.png' class='channel-icon' /></td>
+				<td><a href="#" class='channel-name'>channel 1</a></td>
+				<td>offline/online</td>
+			</tr>	
+			<tr>
+				<td><img src='freecodecamp.png' class='channel-icon' /></td>
+				<td><a href="#" class='channel-name'>channel 2</a></td>
+				<td>offline/online</div></td>			
+			</tr>	
+		</table>
 	</div>
 
 </body>
