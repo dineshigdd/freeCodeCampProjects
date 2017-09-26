@@ -84,12 +84,12 @@
 				<td>offline/online</td>
 			</tr>	
 			<tr>
-				<td><img src='freecodecamp.PNG' class='channel-icon' /></td>
+				<td><img src='freecodecamp.png' class='channel-icon' /></td>
 				<td><a href="#" class='channel-name'>channel 1</a></td>
 				<td>offline/online</td>
 			</tr>	
 			<tr>
-				<td><img src='freecodecamp.PNG' class='channel-icon' /></td>
+				<td><img src='freecodecamp.png' class='channel-icon' /></td>
 				<td><a href="#" class='channel-name'>channel 2</a></td>
 				<td>offline/online</div></td>			
 			</tr>	
