@@ -1,4 +1,8 @@
 <html>
+<!--Client Secret
+
+Passed to the token exchange endpoints to obtain a token. You must keep this confidential. -->
+
 <head>
 <title>TWITCH STREAMERS</title>
 <style>
@@ -9,10 +13,9 @@
 	}
 	
 	.wrapper-outer {
-		    background: #3F5F89;
-			width: 70%;
-			margin: auto;
-			
+		background: #3F5F89;
+		width: 70%;
+		margin: auto;			
 		
 	}
 	
@@ -44,6 +47,12 @@
 		padding:10px;
 	
 	}
+	
+	a{
+		color:white;
+		text-decoration:none;
+
+	}
 	/*.content-wrapper ul{
 		margin:0;
 		padding:0;
@@ -56,43 +65,153 @@
 		
 	
 	}
-	
+	*/
 	img{
-		margin:20px;
+		width:50px;
+	
 	}
-*/
 </style>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 </head>
 <body>
+<script>
+	//var user = ["ESL_SC2", "OgamingSC2", "freecodecamp"];
+	var userList = [{'user':'ESL_SC2','status':1  },{'user':'OgamingSC2', 'status':1 },{'user':'freecodecamp', 'status':1}];
+		   
+	var twichAPI ='';
+	
+
+	function getStatus(){	
+		var selectStatus = document.getElementsByName('status');
+		
+		for(var i = 0; i < selectStatus.length; i++){
+		
+			if( selectStatus[i].checked ){
+				//alert(selectStatus[i].value);
+				
+				for( var r = 0; r < userList.length;r++ )
+					if( parseInt(selectStatus[i].value) === 2 ){
+						for( var r = 0; r < userList.length;r++ ){
+							document.getElementsByTagName('TR')[r].style.display = '';
+						}
+					}else{
+						if (!( parseInt(selectStatus[i].value) == userList[r].status)) {
+								document.getElementsByTagName('TR')[r].style.display = 'none';
+								
+						}else{
+					
+								document.getElementsByTagName('TR')[r].style.display = '';
+						}
+					}
+			}	
+				
+		}	
+	}
+	
+	
+	function getNoLiveStreams(user,index){
+		
+		twichAPI = 'https://api.twitch.tv/kraken/channels/'+ user + '?client_id=zphxt8ifu539vcciwq3ovc78r70pe5';
+		getJsonData(twichAPI,index);
+	}
+	
+	function getChannelData(user,index){
+		
+		twichAPI = 'https://api.twitch.tv/kraken/streams/'+ user + '?client_id=zphxt8ifu539vcciwq3ovc78r70pe5';
+		getJsonData(twichAPI,index);
+	}
+	
+	function getJsonData(twichAPI,index){
+		$.getJSON(twichAPI, { 
+			format:"json"
+			}, 
+		function(channelData){
+					console.log(channelData);
+					
+			if (channelData["stream"] != null) { 
+						
+        					
+			document.getElementsByClassName('channel-logo')[index].src = channelData['stream']['channel']['logo'];
+			document.getElementsByClassName('channel-name')[index].innerHTML = channelData['stream']['channel']['display_name'];
+			document.getElementsByClassName('channel-name')[index].href = channelData['stream']['channel']['url'];
+			document.getElementsByClassName('channel-status')[index].innerHTML = channelData['stream']['channel']['status'];
+			
+	       	        } else {
+	       	        //getNoLiveStreams(userList[index].user,index);
+	       	   	document.getElementsByClassName('channel-logo')[index].src = channelData['logo'];
+			document.getElementsByClassName('channel-name')[index].innerHTML = channelData['display_name'];
+			document.getElementsByClassName('channel-name')[index].href = channelData['url'];
+			document.getElementsByClassName('channel-status')[index].innerHTML = 'offline';
+			userList[index].status = 0;
+						
+			}
+					
+		
+		});
+		
+	 
+	}
+	
+	
+	
+	
+	getChannelData(userList[0].user, 0);
+	getChannelData(userList[1].user, 1);
+	getNoLiveStreams(userList[2].user, 2);
+	
+	
+	
+	/*var user = ["ESL_SC2", "OgamingSC2", "freecodecamp"];
+	(function (){
+		var twichAPI = 'https://api.twitch.tv/kraken/channels/' + user[0]+ '?client_id=zphxt8ifu539vcciwq3ovc78r70pe5';
+		$.getJSON(twichAPI, { 
+			format:"json"
+		})
+			.done(function(channelData) {
+			   console.log(channelData);
+			  	 document.getElementsByClassName('channel-logo')[0].src = channelData['logo'];
+			  	 document.getElementsByClassName('channel-name')[0].innerHTML = channelData['display_name'];
+			  	 document.getElementsByClassName('channel-name')[0].href = channelData['url'];
+			  	 document.getElementsByClassName('channel-status')[0].innerHTML = channelData['status'];
+			  // console.log(data['_links']);
+				//document.getElementById('freecodecamp').href= data._links.channel;
+				
+			});
+	})();*/
+	
+	
+			  	 
+</script>
 	<div class='wrapper-outer'>
 		<div class='header'>TWITCH STREAMERS</div>
 		
-		<form>
+		<form autocomplete="off">
 			<div class='status-bar'>
-				<li><input type=radio id='offline' name='status' value='offline' /><label>Offline</label></li>
-				<li><input type=radio id='online' name='status' value='Online' /><label>Online</label></li>
-				<li><input type=radio id='Offline' name='status' value='All' /><label>All Channel</label></li>
+				<li><input type=radio onclick='getStatus()' name='status' value='0' /><label>Offline</label></li>
+				<li><input type=radio onclick='getStatus()' name='status' value='1' /><label>Online</label></li>
+				<li><input type=radio onclick='getStatus()' name='status' value='2' /><label>All Channel</label></li>
 			</div>
 		</form>
 		
 		
 		
-		<table class='content-wrapper'>
+		<table id='content-wrapper'>
 			<tr>
-				<td><img src='freecodecamp.PNG' class='channel-icon' /></td>
-				<td><a href="#" class='channel-name'>FreeCodeCamp</a></td>
-				<td>offline/online</td>
+				<td><img class='channel-logo' /></td>
+				<td><a id='freecodecamp' class='channel-name' target='_blank'></a></td>
+				<td class='channel-status'></td>
 			</tr>	
 			<tr>
-				<td><img src='freecodecamp.PNG' class='channel-icon' /></td>
-				<td><a href="#" class='channel-name'>channel 1</a></td>
-				<td>offline/online</td>
+				<td><img class='channel-logo' /></td>
+				<td><a href="#" class='channel-name' target='_blank'></a></td>
+				<td class='channel-status'></td>
 			</tr>	
 			<tr>
-				<td><img src='freecodecamp.PNG' class='channel-icon' /></td>
-				<td><a href="#" class='channel-name'>channel 2</a></td>
-				<td>offline/online</div></td>			
+				<td><img class='channel-logo' /></td>
+				<td><a href="#" class='channel-name' target='_blank'></a></td>
+				<td class='channel-status'></td>			
 			</tr>	
+			
 		</table>
 	</div>
 
