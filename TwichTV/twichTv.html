@@ -76,7 +76,7 @@ Passed to the token exchange endpoints to obtain a token. You must keep this con
 <body>
 <script>
 	//var user = ["ESL_SC2", "OgamingSC2", "freecodecamp"];
-	var userList = [{'user':'ESL_SC2','status':1  },{'user':'OgamingSC2', 'status':1 },{'user':'freecodecamp', 'status':1}];
+	var userList = [{'user':'freecodecamp', 'status':1},{'user':'ESL_SC2','status':1  },{'user':'OgamingSC2', 'status':1 }];
 		   
 	var twichAPI ='';
 	
@@ -87,7 +87,7 @@ Passed to the token exchange endpoints to obtain a token. You must keep this con
 		for(var i = 0; i < selectStatus.length; i++){
 		
 			if( selectStatus[i].checked ){
-				//alert(selectStatus[i].value);
+				
 				
 				for( var r = 0; r < userList.length;r++ )
 					if( parseInt(selectStatus[i].value) === 2 ){
@@ -126,7 +126,7 @@ Passed to the token exchange endpoints to obtain a token. You must keep this con
 			format:"json"
 			}, 
 		function(channelData){
-					console.log(channelData);
+					console.log("The Stream is: "+channelData["stream"]);
 					
 			if (channelData["stream"] != null) { 
 						
@@ -136,9 +136,9 @@ Passed to the token exchange endpoints to obtain a token. You must keep this con
 			document.getElementsByClassName('channel-name')[index].href = channelData['stream']['channel']['url'];
 			document.getElementsByClassName('channel-status')[index].innerHTML = channelData['stream']['channel']['status'];
 			
-	       	        } else {
-	       	        //getNoLiveStreams(userList[index].user,index);
-	       	   	document.getElementsByClassName('channel-logo')[index].src = channelData['logo'];
+	       	 } else {
+	       	getNoLiveStreams(userList[index].user,index);
+	       	document.getElementsByClassName('channel-logo')[index].src = channelData['logo'];
 			document.getElementsByClassName('channel-name')[index].innerHTML = channelData['display_name'];
 			document.getElementsByClassName('channel-name')[index].href = channelData['url'];
 			document.getElementsByClassName('channel-status')[index].innerHTML = 'offline';
@@ -154,10 +154,11 @@ Passed to the token exchange endpoints to obtain a token. You must keep this con
 	
 	
 	
-	
-	getChannelData(userList[0].user, 0);
-	getChannelData(userList[1].user, 1);
-	getNoLiveStreams(userList[2].user, 2);
+	for(var i = 0; i < userList.length ; i++ ){
+		getChannelData(userList[i].user, i);
+		}
+	/*getChannelData(userList[1].user, 1);
+	getChannelData(userList[2].user, 2);*/
 	
 	
 	
