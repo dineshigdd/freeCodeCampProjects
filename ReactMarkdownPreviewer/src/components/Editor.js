@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 class Editor extends React.Component{
    render(){
      return(
-       <div>This is the Editor</div>
+       <div>This is the Edito to be developed</div>
      )
    }
 }
