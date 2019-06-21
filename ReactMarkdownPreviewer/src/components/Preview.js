@@ -1,27 +1,14 @@
 import React from 'react';
-//import marked from 'marked';
-
-//import ReactMarkDown from 'react-markdown';
+import '../styles/styles.css';
 
 class Preview extends React.Component {
 
   render() {
-  //   const marked = require('marked');
-  //   marked.setOptions({
-  //   renderer: new marked.Renderer(),
-  //   pedantic: false,
-  //   gfm: true,
-  //   tables: true,
-  //   breaks: false,
-  //   sanitize: true,
-  //   smartLists: true,
-  //   smartypants: false,
-  //   xhtml: false
-  // });
-  //   const output = marked(this.props.toPreview);
-    return(
-      <div id='Preview' dangerouslySetInnerHTML={{__html:this.props.toPreview}}  >
 
+    return(
+      <div id ='preview-wrapper'>
+          <div id='preview-title-bar'>preview</div>
+              <div id='preview' dangerouslySetInnerHTML={{__html:this.props.toPreview}} ></div>
       </div>
 
     );
