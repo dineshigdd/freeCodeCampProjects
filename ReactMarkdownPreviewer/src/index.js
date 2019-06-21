@@ -4,5 +4,7 @@ import ReactDOM from 'react-dom';
 import App from './components/App';
 
 
+
 // Take the react component and show it on the screen
-ReactDOM.render(<App /> , document.querySelector('#root'));
+
+    ReactDOM.render(<App /> , document.querySelector('#root'));
