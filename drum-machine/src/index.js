@@ -7,7 +7,8 @@ class DrumMachine extends React.Component{
     super(props);
     //this.test= this.test.bind(this,drum);
   }
-  state = { selectedDrum : null };
+  state = { selectedDrum : null,
+            description:null };
 
   componentDidMount(){
     document.addEventListener('keydown', this.handleKeyPress.bind(this));
@@ -20,37 +21,48 @@ class DrumMachine extends React.Component{
 
 
   test(drum){
-    
+    let description = null;
     switch(drum){
+      
       case 'Q' :
         this.Q.play();
+        description = 'Heater 1';
         break;
       case 'W':
         this.W.play();
+        description = 'Drums DSC OH';
         break;
       case 'E' :
         this.E.play();
+        description = 'Heater 4';
         break;
       case 'A':
         this.A.play();
+        description = 'Chord 2';
         break;
       case 'S':
         this.S.play();
+        description = 'Drums Give us a light';
         break;
       case 'D':
         this.D.play();
+        description = 'Drums Bld H1';
         break;
       case 'Z':
         this.Z.play();
+        description = 'Drums punchy kick 1'
         break;
       case 'X':
         this.X.play();
-          break;
+        description = 'Chord 3';
+        break;
       case 'C':
         this.C.play();
+        description = 'Drums Brk Snr';
+        break;
     }
 
-    
+       this.setState({description: description });
   }
 
     render(){
@@ -97,7 +109,7 @@ class DrumMachine extends React.Component{
 
                 </ul>
             </div>
-          <div id='display'> </div>
+          <div id='display'> { this.state.description }</div>
         </div>
       );
     };
