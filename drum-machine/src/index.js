@@ -12,12 +12,31 @@ class DrumMachine extends React.Component{
   test(drum){
     switch(drum){
       case 'Q' :
-        console.log(drum);
         this.Q.play();
         break;
       case 'W':
         this.W.play();
         break;
+      case 'E' :
+        this.E.play();
+        break;
+      case 'A':
+        this.A.play();
+        break;
+      case 'S':
+        this.S.play();
+        break;
+      case 'D':
+        this.D.play();
+        break;
+      case 'Z':
+        this.Z.play();
+        break;
+      case 'X':
+        this.X.play();
+          break;
+      case 'C':
+        this.C.play();
     }
 
     //this.props.setState({selectedDrum:"Q"});
@@ -29,11 +48,39 @@ class DrumMachine extends React.Component{
             <div id='drum-machine'>
                 <ul>
                   <li className='drum-pad' id='q-trig' onClick={ this.test.bind(this,'Q') }>Q
-                        <audio ref={ Q => (this.Q = Q)} src="https://s3.amazonaws.com/freecodecamp/simonSound1.mp3" type="audio/mpeg" >
+                        <audio ref={ Q => (this.Q = Q)} src="https://s3.amazonaws.com/freecodecamp/drums/Heater-1.mp3" type="audio/mpeg" >
                         </audio>
                   </li>
                   <li className='drum-pad' id='w-trig' onClick={ this.test.bind(this,'W') }>W
-                        <audio ref={ W => (this.W = W)} src="https://s3.amazonaws.com/freecodecamp/simonSound3.mp3" type="audio/mpeg" >
+                        <audio ref={ W => (this.W = W)} src="https://s3.amazonaws.com/freecodecamp/drums/Dsc_Oh.mp3" type="audio/mpeg" >
+                        </audio>
+                  </li>
+                  <li className='drum-pad' id='q-trig' onClick={ this.test.bind(this,'E') }>E
+                        <audio ref={ E => (this.E = E)} src="https://s3.amazonaws.com/freecodecamp/drums/Heater-4_1.mp3" type="audio/mpeg" >
+                        </audio>
+                  </li>
+                  <li className='drum-pad' id='w-trig' onClick={ this.test.bind(this,'A') }>A
+                        <audio ref={ A => (this.A = A)} src="https://s3.amazonaws.com/freecodecamp/drums/Chord_2.mp3" type="audio/mpeg" >
+                        </audio>
+                  </li>
+                  <li className='drum-pad' id='q-trig' onClick={ this.test.bind(this,'S') }>S
+                        <audio ref={ S => (this.S = S)} src="https://s3.amazonaws.com/freecodecamp/drums/Give_us_a_light.mp3" type="audio/mpeg" >
+                        </audio>
+                  </li>
+                  <li className='drum-pad' id='w-trig' onClick={ this.test.bind(this,'D') }>D
+                        <audio ref={ D => (this.D = D)} src="https://s3.amazonaws.com/freecodecamp/drums/Bld_H1.mp3" type="audio/mpeg" >
+                        </audio>
+                  </li>
+                  <li className='drum-pad' id='q-trig' onClick={ this.test.bind(this,'Z') }>Z
+                        <audio ref={ Z => (this.Z = Z)} src="https://s3.amazonaws.com/freecodecamp/drums/punchy_kick_1.mp3" type="audio/mpeg" >
+                        </audio>
+                  </li>
+                  <li className='drum-pad' id='w-trig' onClick={ this.test.bind(this,'X') }>X
+                        <audio ref={ X => (this.X = X)} src="https://s3.amazonaws.com/freecodecamp/drums/Chord_3.mp3" type="audio/mpeg" >
+                        </audio>
+                  </li>
+                  <li className='drum-pad' id='w-trig' onClick={ this.test.bind(this,'C') }>C
+                        <audio ref={ C => (this.C = C)} src="https://s3.amazonaws.com/freecodecamp/drums/Brk_Snr.mp3" type="audio/mpeg" >
                         </audio>
                   </li>
 
