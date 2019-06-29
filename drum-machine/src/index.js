@@ -71,19 +71,19 @@ class DrumMachine extends React.Component{
         <div>
             <div id='drum-machine'>
                 <ul id='drums-first-row'>
-                  <li className='drum-pad' id='q-pad' onClick={ this.test.bind(this,'Q') }>Q
-                        <audio ref={ Q => (this.Q = Q)} src="https://s3.amazonaws.com/freecodecamp/drums/Heater-1.mp3" type="audio/mpeg" className ='clip' id='Q'>
-                        </audio>
-                  </li>
-                  <li className='drum-pad' id='w-pad' onClick={ this.test.bind(this,'W') }>W
-                        <audio ref={ W => (this.W = W)} src="https://s3.amazonaws.com/freecodecamp/drums/Dsc_Oh.mp3" type="audio/mpeg" className ='clip' id='W'>
-                        </audio>
-                  </li>
+                    <li className='drum-pad' id='q-pad' onClick={ this.test.bind(this,'Q') }>Q
+                          <audio ref={ Q => (this.Q = Q)} src="https://s3.amazonaws.com/freecodecamp/drums/Heater-1.mp3" type="audio/mpeg" className ='clip' id='Q'>
+                          </audio>
+                    </li>
+                    <li className='drum-pad' id='w-pad' onClick={ this.test.bind(this,'W') }>W
+                          <audio ref={ W => (this.W = W)} src="https://s3.amazonaws.com/freecodecamp/drums/Dsc_Oh.mp3" type="audio/mpeg" className ='clip' id='W'>
+                          </audio>
+                    </li>
 
-                  <li className='drum-pad' id='e-pad' onClick={ this.test.bind(this,'E') }>E
-                        <audio ref={ E => (this.E = E)} src="https://s3.amazonaws.com/freecodecamp/drums/Heater-4_1.mp3" type="audio/mpeg" className ='clip' id ='E'>
-                        </audio>
-                  </li>
+                    <li className='drum-pad' id='e-pad' onClick={ this.test.bind(this,'E') }>E
+                          <audio ref={ E => (this.E = E)} src="https://s3.amazonaws.com/freecodecamp/drums/Heater-4_1.mp3" type="audio/mpeg" className ='clip' id ='E'>
+                          </audio>
+                    </li>
                 </ul>
                 <ul id='drum-second-row'>
                   <li className='drum-pad' id='a-pad' onClick={ this.test.bind(this,'A') }>A
@@ -112,7 +112,6 @@ class DrumMachine extends React.Component{
                         <audio ref={ C => (this.C = C)} src="https://s3.amazonaws.com/freecodecamp/drums/Brk_Snr.mp3" type="audio/mpeg" className ='clip' id='C'>
                         </audio>
                   </li>
-
                 </ul>
             </div>
 
