@@ -1,5 +1,6 @@
 import React from 'react';
 import './styles.css'
+import Operations from 'operations';
 
 class Calstructure extends React.Component {
   constructor(props){
@@ -19,8 +20,16 @@ class Calstructure extends React.Component {
         this.setState({ dispaly: value });
       }  else{
         this.setState({ dispaly: 0 });
+        if( value === '='){
+          sendOperation();
+        }
     }
   }
+
+ sendOperation = (operation) =>{
+
+ }
+
 
  render(){
     const numbers = this.state.numPad.map( (num ) =>
