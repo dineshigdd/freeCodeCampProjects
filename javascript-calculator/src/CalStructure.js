@@ -1,8 +1,12 @@
 import React from 'react';
 import './styles.css'
-import Operations from 'operations';
 
+let result = 0;
+let valueStr ='';
+let tempStr ='';
+var temp =[];
 class Calstructure extends React.Component {
+
   constructor(props){
     super(props);
     this.state = {
@@ -10,24 +14,155 @@ class Calstructure extends React.Component {
       numPad:[1,2,3,4,5,6,7,8,9,0],
       idForOtherPads:["add", "subtract","multiply","divide","decimal","clear",'equals'],
       otherPads:["+","-","*","/",".","clear","="],
-      display:0
+      subDisplay:0,
+      mainDisplay:0
       };
 
   }
 
-  getInput = (value) =>{
-    if( value !== 'clear'){
-        this.setState({ dispaly: value });
-      }  else{
-        this.setState({ dispaly: 0 });
-        if( value === '='){
-          sendOperation();
-        }
+
+  getInput( value ) {
+    //get value as a String
+    value =  '45.78+23.56-4*1.23+6.78/3';
+    valueStr = valueStr + value;
+
+    //search for * and /
+
+    var operatorArr = [];
+    var operand_1= '';
+    var operand_2= '';
+    var sign = '';
+    var index = 0
+    ;
+
+      for(let i = 0; i < valueStr.length; i++ ){
+          if( valueStr.charAt(i) === '*' ){
+              index = valueStr.indexOf('*')
+              operatorArr.push(valueStr.charAt(index));
+
+              for(let i = index - 1; i >=0 && !(valueStr.charAt(i) === '-' || valueStr.charAt(i) === '+' )  ; i-- ){
+                   operand_1= (valueStr.charAt(i)) + operand_1;
+                   sign = valueStr.charAt(i - 1);
+
+              }
+              tempStr = tempStr + operand_1;
+
+
+              // if(sign === '-'){
+              //   operand_1 = Number(operand_1) / -1 ;
+              // }
+
+              sign = '';
+              for(let i = index + 1; i < valueStr.length && !(valueStr.charAt(i) === '-' || valueStr.charAt(i) === '+' )  ; i++ ){
+                   operand_2 = operand_2 + (valueStr.charAt(i)) ;
+                   sign = valueStr.charAt(index + 1);
+              }
+
+              tempStr = tempStr + '*' + operand_2;
+              //
+              // if(sign === '-'){
+              //   operand_2 = Number(operand_2) / -1 ;
+              // }
+
+              console.log(Number(operand_1));
+              console.log(Number(operand_2));
+              temp.push(operand_1 * operand_2);
+
+              tempStr = valueStr.replace(tempStr,temp.pop());
+              valueStr = '';
+              valueStr = tempStr;
+              console.log('valueStr:'+valueStr);
+
+
+          }
+
+          sign = '';
+          operand_1 = '';
+          operand_2 = '';
+          tempStr ='';
+
+          if( valueStr.charAt(i) === '/' ){
+              index = valueStr.indexOf('/')
+              operatorArr.push(valueStr.charAt(index));
+
+
+              for(let i = index - 1; i >=0 && !(valueStr.charAt(i) === '-' || valueStr.charAt(i) === '+'  )  ; i-- ){
+                   operand_1= (valueStr.charAt(i)) + operand_1;
+                   sign = valueStr.charAt(i - 1);
+              }
+
+              tempStr = tempStr + operand_1;
+              // if(sign === '-'){
+              //   operand_1 = Number(operand_1) / -1 ;
+              // }
+
+
+              sign = '';
+              for(let i = index + 1; i < valueStr.length && !(valueStr.charAt(i) === '-' || valueStr.charAt(i) === '+' )   ; i++ ){
+                   operand_2 = operand_2 + (valueStr.charAt(i)) ;
+                   sign = valueStr.charAt(index + 1);
+              }
+
+                tempStr = tempStr + '/' + operand_2;
+              // if(sign === '-'){
+              //   operand_2 = Number(operand_2) / -1 ;
+              // }
+
+              console.log(operatorArr);
+              console.log(operand_1);
+              console.log(operand_2);
+              temp.push((Number(operand_1) / Number(operand_2)).toFixed(2));
+
+              tempStr = valueStr.replace(tempStr,temp.pop())
+              valueStr = '';
+              valueStr = tempStr;
+              console.log('valueStr:' + valueStr);
+
+              }
+
     }
-  }
+    operand_1 = 0;
+    operand_2 = 0;
+    let negativeNum;
+    let positiveNum;
+    // ^[^-]\d*|^[^-]\d+(\.\d*)|[+]\d+(\.\d*)|[+]\d*
+    negativeNum = valueStr.match(/-\d+(\.\d*)|-\d*/g);
+    console.log(negativeNum);
+    positiveNum = valueStr.match(/^[^-]\d+(\.\d*)|^[^-]\d*|[+]\d+(\.\d*)|[+]\d*/g);
+    console.log(positiveNum);
+    for(let i = 0; i < positiveNum.length; i++ ){
+       if( positiveNum[i].charAt(0) === '+'){
 
- sendOperation = (operation) =>{
+          operand_1 = operand_1 +  Number(positiveNum[i].substring(1,positiveNum[i].length));
 
+       }else{
+         operand_1 = operand_1 +  Number(positiveNum[i]);
+       }
+
+
+    }
+      console.log("positiveNum:" +positiveNum );
+
+      for(let i = 0; i < negativeNum.length; i++ ){
+         if( negativeNum[i].charAt(0) === '-'){
+
+            operand_2 = operand_2 +  Number(negativeNum[i].substring(1,negativeNum[i].length));
+
+         }else{
+           operand_2 = operand_2 +  Number(negativeNum[i]);
+         }
+
+
+      }
+
+
+    console.log('operand_1:' + operand_1);
+    console.log('operand_2:' + operand_2);
+
+
+    result = operand_1 + (-1 * operand_2);
+    this.setState({ mainDisplay: result });
+    console.log("result:" + result.toFixed(2));
  }
 
 
@@ -42,7 +177,8 @@ class Calstructure extends React.Component {
     return(
       <div id='outer-wrapper'>
         <div id='inner-wrapper'>
-            <div id='display'>{ this.state.dispaly }</div>
+            <div id='sub-display'> { this.state.subDisplay }</div>
+            <div id='display'>{ this.state.mainDisplay }</div>
             <ul>{ operators[ this.state.otherPads.indexOf('clear')] }  { operators[ this.state.otherPads.indexOf('/')] } </ul>
             <ul>{ numbers.slice(6,9)} { operators[ this.state.otherPads.indexOf('*')]}</ul>
             <ul>{ numbers.slice(3,6)} { operators[ this.state.otherPads.indexOf('-')]}</ul>

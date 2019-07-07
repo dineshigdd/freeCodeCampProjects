@@ -9,6 +9,13 @@
      padding: 50px;
 }
 
+#sub-display{
+  position: relative;
+  left: -60px;
+  top:-30px;
+  text-align:right;
+}
+
 #display{
   text-align: right;
   background-color: lightgray;
