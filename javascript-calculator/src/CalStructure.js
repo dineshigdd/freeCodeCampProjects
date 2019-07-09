@@ -43,18 +43,18 @@ class Calstructure extends React.Component {
 
         }
 
-        this.setState({ subDisplay:valueStr });
+        // this.setState({ subDisplay:valueStr });
 
        if(!(value === '+' || value === '-' || value === '*' || value === '/')){
 
             tempStr = tempStr + value;
 
-          if( tempStr.match(/^0*/g)[0].length >=1 ){
+            var matchZeros = tempStr.match(/^[00]*(?!\.)/g);
+          if( matchZeros[0].length > 1 ){
 
-            
-            console.log("yes");
-              // value = '0';
-              // tempStr = value;
+              tempStr = value.toString();
+              valueStr.find
+                console.log("valueStrrrrr:" + valueStr);
            }
 
           this.setState({ mainDisplay:tempStr });
@@ -64,6 +64,8 @@ class Calstructure extends React.Component {
          tempStr ='';
          value = '';
        }
+
+         this.setState({ subDisplay:valueStr });
 
   }else{
         //search for * and /
