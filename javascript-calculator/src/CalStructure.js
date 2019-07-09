@@ -23,146 +23,199 @@ class Calstructure extends React.Component {
 
   getInput( value ) {
     //get value as a String
-    value =  '45.78+23.56-4*1.23+6.78/3';
-    valueStr = valueStr + value;
-
-    //search for * and /
-
-    var operatorArr = [];
-    var operand_1= '';
-    var operand_2= '';
-    var sign = '';
-    var index = 0
-    ;
-
-      for(let i = 0; i < valueStr.length; i++ ){
-          if( valueStr.charAt(i) === '*' ){
-              index = valueStr.indexOf('*')
-              operatorArr.push(valueStr.charAt(index));
-
-              for(let i = index - 1; i >=0 && !(valueStr.charAt(i) === '-' || valueStr.charAt(i) === '+' )  ; i-- ){
-                   operand_1= (valueStr.charAt(i)) + operand_1;
-                   sign = valueStr.charAt(i - 1);
-
-              }
-              tempStr = tempStr + operand_1;
+    //value =  '45.78+23.56-4*1.23+6.78/3';
+ console.log('valueStr:' + valueStr);
+ console.log('value:'+value);
+ console.log(" valueStr.length:"+  valueStr.length);
 
 
-              // if(sign === '-'){
-              //   operand_1 = Number(operand_1) / -1 ;
-              // }
+  if( value !== '='){
 
-              sign = '';
-              for(let i = index + 1; i < valueStr.length && !(valueStr.charAt(i) === '-' || valueStr.charAt(i) === '+' )  ; i++ ){
-                   operand_2 = operand_2 + (valueStr.charAt(i)) ;
-                   sign = valueStr.charAt(index + 1);
-              }
+       if( (valueStr[0] === '0' && valueStr.length === 1 && value === 0 ) ){
+          valueStr = '0';
 
-              tempStr = tempStr + '*' + operand_2;
-              //
-              // if(sign === '-'){
-              //   operand_2 = Number(operand_2) / -1 ;
-              // }
-
-              console.log(Number(operand_1));
-              console.log(Number(operand_2));
-              temp.push(operand_1 * operand_2);
-
-              tempStr = valueStr.replace(tempStr,temp.pop());
-              valueStr = '';
-              valueStr = tempStr;
-              console.log('valueStr:'+valueStr);
+        }else{
+            if( valueStr[0] === '0' &&  valueStr.length === 1 && (value > 0 || value.toString() !== '.')){
+              valueStr = value.toString();
+            }else
+              valueStr = valueStr + value;
 
 
-          }
+        }
 
-          sign = '';
-          operand_1 = '';
-          operand_2 = '';
-          tempStr ='';
+        this.setState({ subDisplay:valueStr });
 
-          if( valueStr.charAt(i) === '/' ){
-              index = valueStr.indexOf('/')
-              operatorArr.push(valueStr.charAt(index));
+       if(!(value === '+' || value === '-' || value === '*' || value === '/')){
 
+            tempStr = tempStr + value;
 
-              for(let i = index - 1; i >=0 && !(valueStr.charAt(i) === '-' || valueStr.charAt(i) === '+'  )  ; i-- ){
-                   operand_1= (valueStr.charAt(i)) + operand_1;
-                   sign = valueStr.charAt(i - 1);
-              }
+          if( tempStr.match(/^0*/g)[0].length >=1 ){
 
-              tempStr = tempStr + operand_1;
-              // if(sign === '-'){
-              //   operand_1 = Number(operand_1) / -1 ;
-              // }
+            
+            console.log("yes");
+              // value = '0';
+              // tempStr = value;
+           }
 
-
-              sign = '';
-              for(let i = index + 1; i < valueStr.length && !(valueStr.charAt(i) === '-' || valueStr.charAt(i) === '+' )   ; i++ ){
-                   operand_2 = operand_2 + (valueStr.charAt(i)) ;
-                   sign = valueStr.charAt(index + 1);
-              }
-
-                tempStr = tempStr + '/' + operand_2;
-              // if(sign === '-'){
-              //   operand_2 = Number(operand_2) / -1 ;
-              // }
-
-              console.log(operatorArr);
-              console.log(operand_1);
-              console.log(operand_2);
-              temp.push((Number(operand_1) / Number(operand_2)).toFixed(2));
-
-              tempStr = valueStr.replace(tempStr,temp.pop())
-              valueStr = '';
-              valueStr = tempStr;
-              console.log('valueStr:' + valueStr);
-
-              }
-
-    }
-    operand_1 = 0;
-    operand_2 = 0;
-    let negativeNum;
-    let positiveNum;
-    // ^[^-]\d*|^[^-]\d+(\.\d*)|[+]\d+(\.\d*)|[+]\d*
-    negativeNum = valueStr.match(/-\d+(\.\d*)|-\d*/g);
-    console.log(negativeNum);
-    positiveNum = valueStr.match(/^[^-]\d+(\.\d*)|^[^-]\d*|[+]\d+(\.\d*)|[+]\d*/g);
-    console.log(positiveNum);
-    for(let i = 0; i < positiveNum.length; i++ ){
-       if( positiveNum[i].charAt(0) === '+'){
-
-          operand_1 = operand_1 +  Number(positiveNum[i].substring(1,positiveNum[i].length));
-
+          this.setState({ mainDisplay:tempStr });
        }else{
-         operand_1 = operand_1 +  Number(positiveNum[i]);
+         tempStr = value;
+         this.setState({ mainDisplay:tempStr });
+         tempStr ='';
+         value = '';
        }
 
+  }else{
+        //search for * and /
+        var operatorArr = [];
+        var operand_1= '';
+        var operand_2= '';
+        var sign = '';
+        var index = 0;
 
-    }
-      console.log("positiveNum:" +positiveNum );
+        for(let i = 0; i < valueStr.length; i++ ){
+              if( valueStr.charAt(i) === '*' ){
+                  index = valueStr.indexOf('*')
+                  operatorArr.push(valueStr.charAt(index));
 
-      for(let i = 0; i < negativeNum.length; i++ ){
-         if( negativeNum[i].charAt(0) === '-'){
+                  for(let i = index - 1; i >=0 && !(valueStr.charAt(i) === '-' || valueStr.charAt(i) === '+' )  ; i-- ){
+                       operand_1= (valueStr.charAt(i)) + operand_1;
+                       sign = valueStr.charAt(i - 1);
 
-            operand_2 = operand_2 +  Number(negativeNum[i].substring(1,negativeNum[i].length));
+                  }
+                  tempStr = tempStr + operand_1;
 
-         }else{
-           operand_2 = operand_2 +  Number(negativeNum[i]);
+
+                  // if(sign === '-'){
+                  //   operand_1 = Number(operand_1) / -1 ;
+                  // }
+
+                  sign = '';
+                  for(let i = index + 1; i < valueStr.length && !(valueStr.charAt(i) === '-' || valueStr.charAt(i) === '+' )  ; i++ ){
+                       operand_2 = operand_2 + (valueStr.charAt(i)) ;
+                       sign = valueStr.charAt(index + 1);
+                  }
+
+                  tempStr = tempStr + '*' + operand_2;
+                  //
+                  // if(sign === '-'){
+                  //   operand_2 = Number(operand_2) / -1 ;
+                  // }
+
+                  console.log(Number(operand_1));
+                  console.log(Number(operand_2));
+                  temp.push(operand_1 * operand_2);
+
+                  tempStr = valueStr.replace(tempStr,temp.pop());
+                  valueStr = '';
+                  valueStr = tempStr;
+                  console.log('valueStr:'+valueStr);
+
+
+              }
+
+              sign = '';
+              operand_1 = '';
+              operand_2 = '';
+              tempStr ='';
+
+              if( valueStr.charAt(i) === '/' ){
+                  index = valueStr.indexOf('/')
+                  operatorArr.push(valueStr.charAt(index));
+
+
+                  for(let i = index - 1; i >=0 && !(valueStr.charAt(i) === '-' || valueStr.charAt(i) === '+'  )  ; i-- ){
+                       operand_1= (valueStr.charAt(i)) + operand_1;
+                       sign = valueStr.charAt(i - 1);
+                  }
+
+                  tempStr = tempStr + operand_1;
+                  // if(sign === '-'){
+                  //   operand_1 = Number(operand_1) / -1 ;
+                  // }
+
+
+                  sign = '';
+                  for(let i = index + 1; i < valueStr.length && !(valueStr.charAt(i) === '-' || valueStr.charAt(i) === '+' )   ; i++ ){
+                       operand_2 = operand_2 + (valueStr.charAt(i)) ;
+                       sign = valueStr.charAt(index + 1);
+                  }
+
+                    tempStr = tempStr + '/' + operand_2;
+                  // if(sign === '-'){
+                  //   operand_2 = Number(operand_2) / -1 ;
+                  // }
+
+                  console.log(operatorArr);
+                  console.log(operand_1);
+                  console.log(operand_2);
+                  temp.push((Number(operand_1) / Number(operand_2)).toFixed(2));
+
+                  tempStr = valueStr.replace(tempStr,temp.pop())
+                  valueStr = '';
+                  valueStr = tempStr;
+                  console.log('valueStr:' + valueStr);
+
+                  }
+
+        }
+        operand_1 = 0;
+        operand_2 = 0;
+        let negativeNum;
+        let positiveNum;
+
+        negativeNum = valueStr.match(/-\d+(\.\d*)|-\d*/g);
+        console.log(negativeNum);
+        positiveNum = valueStr.match(/^[^-]\d+(\.\d*)|^[^-]\d*|[+]\d+(\.\d*)|[+]\d*/g);
+        console.log(positiveNum);
+        if( positiveNum != null){
+            for(let i = 0; i < positiveNum.length; i++ ){
+               if( positiveNum[i].charAt(0) === '+'){
+
+                  operand_1 = operand_1 +  Number(positiveNum[i].substring(1,positiveNum[i].length));
+
+               }else{
+                 operand_1 = operand_1 +  Number(positiveNum[i]);
+               }
+            }
+        }
+          console.log("positiveNum:" +positiveNum );
+
+          if( negativeNum != null){
+            for(let i = 0; i < negativeNum.length; i++ ){
+               if( negativeNum[i].charAt(0) === '-'){
+
+                  operand_2 = operand_2 +  Number(negativeNum[i].substring(1,negativeNum[i].length));
+
+               }else{
+                 operand_2 = operand_2 +  Number(negativeNum[i]);
+               }
+            }
          }
 
 
+        console.log('operand_1:' + operand_1);
+        console.log('operand_2:' + operand_2);
+
+
+        result = operand_1 + (-1 * operand_2);
+        this.setState({ mainDisplay: result });
+        console.log("result:" + result.toFixed(2));
       }
 
-
-    console.log('operand_1:' + operand_1);
-    console.log('operand_2:' + operand_2);
-
-
-    result = operand_1 + (-1 * operand_2);
-    this.setState({ mainDisplay: result });
-    console.log("result:" + result.toFixed(2));
+      if( value === 'clear'){
+          this.setState({ mainDisplay:0 });
+          this.setState({ subDisplay:0 })
+          operatorArr = [];
+          operand_1= '';
+          operand_2= '';
+          sign = '';
+          index = 0;
+          result = 0;
+          valueStr ='';
+          tempStr ='';
+          temp =[];
+      }
  }
 
 
