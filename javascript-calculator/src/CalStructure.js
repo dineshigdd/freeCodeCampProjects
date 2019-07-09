@@ -53,8 +53,10 @@ class Calstructure extends React.Component {
           if( matchZeros[0].length > 1 ){
 
               tempStr = value.toString();
-              valueStr.find
+              valueStr.replace(valueStr.search(matchZeros),0);
                 console.log("valueStrrrrr:" + valueStr);
+           }else{
+
            }
 
           this.setState({ mainDisplay:tempStr });
