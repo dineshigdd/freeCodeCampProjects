@@ -5,6 +5,7 @@ let result = 0;
 let valueStr ='';
 let tempStr ='';
 var temp =[];
+var isAddingZero = false;
 class Calstructure extends React.Component {
 
   constructor(props){
@@ -37,8 +38,12 @@ class Calstructure extends React.Component {
         }else{
             if( valueStr[0] === '0' &&  valueStr.length === 1 && (value > 0 || value.toString() !== '.')){
               valueStr = value.toString();
-            }else
+            }else if(!isAddingZero){
               valueStr = valueStr + value;
+            }else if( isAddingZero && value !== 0 ){
+              isAddingZero = false;
+
+            }
 
 
         }
@@ -46,26 +51,54 @@ class Calstructure extends React.Component {
         // this.setState({ subDisplay:valueStr });
 
        if(!(value === '+' || value === '-' || value === '*' || value === '/')){
+         var zeros = '';
+                if( tempStr[0] === '0' &&  tempStr.length === 1 && (value > 0 || value.toString() !== '.')){ //replace leading zeros in tempStr
+                    tempStr = value.toString();
+                    console.log("TEST")
 
-            tempStr = tempStr + value;
 
-            var matchZeros = tempStr.match(/^[00]*(?!\.)/g);
-          if( matchZeros[0].length > 1 ){
+                }else{
+                     tempStr = tempStr + value;
+                       //  var matchZeros = tempStr.match(/^[00]*(?!\.)/g);
+                     console.log("tempStr:" +tempStr);
 
-              tempStr = value.toString();
-              valueStr.replace(valueStr.search(matchZeros),0);
-                console.log("valueStrrrrr:" + valueStr);
-           }else{
+            //    console.log("valueStrrrrr:" + valueStr.replace( valueStr.match(/[+]00+/g). + tempStr , tempStr));
 
-           }
 
-          this.setState({ mainDisplay:tempStr });
-       }else{
-         tempStr = value;
-         this.setState({ mainDisplay:tempStr });
-         tempStr ='';
-         value = '';
-       }
+                    console.log("valueStrddddd:" +valueStr);
+                    zeros = valueStr.match(/[+]0+/g);
+
+                          if( Array.isArray(zeros)){
+                            zeros = zeros.join();
+                          //  zeros = zeros.replace(zeros,zeros.substring(0,zeros.length))
+
+                              if( zeros.length > 1 ){
+                                isAddingZero  = true;
+                                console.log("zeroooooo:" +zeros + "isAddingZero:" + isAddingZero);
+                              }else{
+                                //console.log("zeros + tempStr:" +zeros + tempStr);
+
+                                var findStr = new RegExp( zeros +  tempStr ,"g");
+                            //    console.log("findStr:" +findStr);
+
+                            //    console.log("valueStr:" + valueStr)
+                                valueStr = valueStr.replace( findStr, tempStr);
+                                    console.log("repalced valueStr:" +valueStr);
+
+                              }
+                          }
+
+
+              }
+            this.setState({ mainDisplay:tempStr });
+
+
+         }else{
+           tempStr = value;
+           this.setState({ mainDisplay:tempStr });
+           tempStr ='';
+           value = '';
+         }
 
          this.setState({ subDisplay:valueStr });
 
