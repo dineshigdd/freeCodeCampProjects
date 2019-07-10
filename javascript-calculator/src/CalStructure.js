@@ -6,6 +6,7 @@ let valueStr ='';
 let tempStr ='';
 var temp =[];
 var isAddingZero = false;
+var isOpearationAdded = false;
 class Calstructure extends React.Component {
 
   constructor(props){
@@ -32,75 +33,67 @@ class Calstructure extends React.Component {
 
   if( value !== '='){
 
-       if( (valueStr[0] === '0' && valueStr.length === 1 && value === 0 ) ){
-          valueStr = '0';
-
-        }else{
-            if( valueStr[0] === '0' &&  valueStr.length === 1 && (value > 0 || value.toString() !== '.')){
-              valueStr = value.toString();
-            }else if(!isAddingZero){
-              valueStr = valueStr + value;
-            }else if( isAddingZero && value !== 0 ){
-              isAddingZero = false;
-
-            }
-
-
-        }
-
-        // this.setState({ subDisplay:valueStr });
 
        if(!(value === '+' || value === '-' || value === '*' || value === '/')){
          var zeros = '';
                 if( tempStr[0] === '0' &&  tempStr.length === 1 && (value > 0 || value.toString() !== '.')){ //replace leading zeros in tempStr
                     tempStr = value.toString();
-                    console.log("TEST")
+                     console.log("isAddingZero:" +isAddingZero)
+                     if( !isAddingZero){
+                          valueStr = valueStr + value.toString();
+
+                      }else{
+                        console.log("this is 2md test")
+                        valueStr = valueStr.split('');
+                        valueStr[valueStr.length - 1] = value;
+                        valueStr = valueStr.join('');
+                        isOpearationAdded = false;
+                      //  valueStr = valueStr.replace(valueStr[valueStr.length - 1],value)
+                      }
+
 
 
                 }else{
                      tempStr = tempStr + value;
+                     console.log("test")
+                     valueStr = valueStr + value;
+
+
+
+                     if( isOpearationAdded  ){
+
+                       zeros = valueStr.match(/[+]0+|[-]0+|[*]0+|[/]0+/g);
+                       console.log("zeros:" + zeros)
+                      
+                    if(zeros !== null){
+                       if( zeros.length >= 1 ){
+
+                                 isAddingZero  = true;
+                        }
+                      }
+                    }
+
                        //  var matchZeros = tempStr.match(/^[00]*(?!\.)/g);
+                         console.log("zeros:" + zeros)
                      console.log("tempStr:" +tempStr);
-
-            //    console.log("valueStrrrrr:" + valueStr.replace( valueStr.match(/[+]00+/g). + tempStr , tempStr));
-
-
-                    console.log("valueStrddddd:" +valueStr);
-                    zeros = valueStr.match(/[+]0+/g);
-
-                          if( Array.isArray(zeros)){
-                            zeros = zeros.join();
-                          //  zeros = zeros.replace(zeros,zeros.substring(0,zeros.length))
-
-                              if( zeros.length > 1 ){
-                                isAddingZero  = true;
-                                console.log("zeroooooo:" +zeros + "isAddingZero:" + isAddingZero);
-                              }else{
-                                //console.log("zeros + tempStr:" +zeros + tempStr);
-
-                                var findStr = new RegExp( zeros +  tempStr ,"g");
-                            //    console.log("findStr:" +findStr);
-
-                            //    console.log("valueStr:" + valueStr)
-                                valueStr = valueStr.replace( findStr, tempStr);
-                                    console.log("repalced valueStr:" +valueStr);
-
-                              }
-                          }
-
-
               }
+
+
             this.setState({ mainDisplay:tempStr });
+            this.setState({ subDisplay:valueStr });
 
 
          }else{
            tempStr = value;
+           valueStr = valueStr + tempStr;//adding the sign
+           isOpearationAdded = true;
+           sign = tempStr;
            this.setState({ mainDisplay:tempStr });
+           this.setState({ subDisplay:valueStr });
            tempStr ='';
            value = '';
          }
 
-         this.setState({ subDisplay:valueStr });
 
   }else{
         //search for * and /
