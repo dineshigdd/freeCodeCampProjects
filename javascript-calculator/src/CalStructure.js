@@ -1,7 +1,7 @@
 import React from 'react';
 import './styles.css'
 
-let result = '';
+let result = 0;
 let valueStr ='';
 let tempStr ='';
 var temp =[];
@@ -24,12 +24,6 @@ class Calstructure extends React.Component {
 
 
   getInput( value ) {
-    //get value as a String
-    //value =  '45.78+23.56-4*1.23+6.78/3';
- console.log('valueStr:' + valueStr);
- console.log('value:'+value);
- console.log(" valueStr.length:"+  valueStr.length);
-
 
   if( value !== '='){
 
@@ -38,11 +32,10 @@ class Calstructure extends React.Component {
          var zeros = '';
                 if( tempStr[0] === '0' &&  tempStr.length === 1 && (value > 0 || value.toString() !== '.')){ //replace leading zeros in tempStr
                     tempStr = value.toString();
-                     console.log("isAddingZero:" +isAddingZero)
+
                      if( !isAddingZero){
-                          // if( tempStr !== '0'){//check this  wrong output 123 + 00. when attempting more than one zeros after + and before .
-                        valueStr =  value.toString();
-                        //  }
+
+                        valueStr =  value.toString();                    
 
                       }else{
 
@@ -50,7 +43,7 @@ class Calstructure extends React.Component {
                         valueStr[valueStr.length - 1] = value;
                         valueStr = valueStr.join('');
                         isOpearationAdded = false;
-                      //  valueStr = valueStr.replace(valueStr[valueStr.length - 1],value)
+
                       }
 
 
@@ -63,9 +56,7 @@ class Calstructure extends React.Component {
                                tempStr = '0';
                             }
 
-
                               tempStr = tempStr + value;
-
 
                             if( valueStr === '' && value === '.' ){
                                valueStr = '0';
@@ -91,7 +82,7 @@ class Calstructure extends React.Component {
                      if( isOpearationAdded  ){
 
                        zeros = valueStr.match(/[+]0+|[-]0+|[*]0+|[/]0+/g);
-                       console.log("zeros:" + zeros)
+
 
                     if(zeros !== null){
                        if( zeros.length >= 1 ){
@@ -100,10 +91,6 @@ class Calstructure extends React.Component {
                         }
                       }
                     }
-
-                       //  var matchZeros = tempStr.match(/^[00]*(?!\.)/g);
-                         console.log("zeros:" + zeros)
-                         console.log("tempStr:" +tempStr);
               }
 
 
@@ -112,11 +99,6 @@ class Calstructure extends React.Component {
 
 
          }else{
-
-           if( result !== '' && ( value === '*' || value === '/')){
-             valueStr = result + value;
-           }
-
            tempStr = value;
 
            if(  (valueStr[ valueStr.length - 1 ] === '+' ||
@@ -139,8 +121,7 @@ class Calstructure extends React.Component {
          }
 
 
-  }else{ // if '=' is pressed
-    console.log("you presss:" + value)
+  }else{
         //search for * and /
         var operatorArr = [];
         var operand_1= '';
@@ -160,11 +141,6 @@ class Calstructure extends React.Component {
                   }
                   tempStr = tempStr + operand_1;
 
-
-                  // if(sign === '-'){
-                  //   operand_1 = Number(operand_1) / -1 ;
-                  // }
-
                   sign = '';
                   for(let i = index + 1; i < valueStr.length && !(valueStr.charAt(i) === '-' || valueStr.charAt(i) === '+' )  ; i++ ){
                        operand_2 = operand_2 + (valueStr.charAt(i)) ;
@@ -172,20 +148,12 @@ class Calstructure extends React.Component {
                   }
 
                   tempStr = tempStr + '*' + operand_2;
-                  //
-                  // if(sign === '-'){
-                  //   operand_2 = Number(operand_2) / -1 ;
-                  // }
 
-                  console.log(Number(operand_1));
-                  console.log(Number(operand_2));
                   temp.push(operand_1 * operand_2);
 
                   tempStr = valueStr.replace(tempStr,temp.pop());
                   valueStr = '';
                   valueStr = tempStr;
-                  console.log('valueStr:'+valueStr);
-
 
               }
 
@@ -205,10 +173,6 @@ class Calstructure extends React.Component {
                   }
 
                   tempStr = tempStr + operand_1;
-                  // if(sign === '-'){
-                  //   operand_1 = Number(operand_1) / -1 ;
-                  // }
-
 
                   sign = '';
                   for(let i = index + 1; i < valueStr.length && !(valueStr.charAt(i) === '-' || valueStr.charAt(i) === '+' )   ; i++ ){
@@ -217,19 +181,12 @@ class Calstructure extends React.Component {
                   }
 
                     tempStr = tempStr + '/' + operand_2;
-                  // if(sign === '-'){
-                  //   operand_2 = Number(operand_2) / -1 ;
-                  // }
 
-                  console.log(operatorArr);
-                  console.log(operand_1);
-                  console.log(operand_2);
-                  temp.push((Number(operand_1) / Number(operand_2)).toFixed(4));
+                  temp.push((Number(operand_1) / Number(operand_2)).toFixed(2));
 
                   tempStr = valueStr.replace(tempStr,temp.pop())
                   valueStr = '';
                   valueStr = tempStr;
-                  console.log('valueStr:' + valueStr);
 
                   }
 
@@ -240,9 +197,9 @@ class Calstructure extends React.Component {
         let positiveNum;
 
         negativeNum = valueStr.match(/-\d+(\.\d*)|-\d*/g);
-        console.log(negativeNum);
-        positiveNum = valueStr.match(/^\d+(\.\d*)|^\d*|[+]\d+(\.\d*)|[+]\d*/g); //^[^-]\d+(\.\d*)|^[^-]\d*|[+]\d+(\.\d*)|[+]\d*
-        console.log(positiveNum);
+
+        positiveNum = valueStr.match(/^[^-]\d+(\.\d*)|^[^-]\d*|[+]\d+(\.\d*)|[+]\d*/g);
+
         if( positiveNum != null){
             for(let i = 0; i < positiveNum.length; i++ ){
                if( positiveNum[i].charAt(0) === '+'){
@@ -254,7 +211,7 @@ class Calstructure extends React.Component {
                }
             }
         }
-          console.log("positiveNum:" +positiveNum );
+
 
           if( negativeNum != null){
             for(let i = 0; i < negativeNum.length; i++ ){
@@ -269,13 +226,9 @@ class Calstructure extends React.Component {
          }
 
 
-        console.log('operand_1:' + operand_1);
-        console.log('operand_2:' + operand_2);
-
-
-        result = Number(operand_1 + (-1 * operand_2));
+        result = operand_1 + (-1 * operand_2);
         this.setState({ mainDisplay: result });
-        console.log("result:" + result.toFixed(4));
+
       }
 
       if( value === 'clear'){
@@ -286,7 +239,7 @@ class Calstructure extends React.Component {
           operand_2= '';
           sign = '';
           index = 0;
-          result = '';
+          result = 0;
           valueStr ='';
           tempStr ='';
           temp =[];
