@@ -113,7 +113,18 @@ class Calstructure extends React.Component {
 
          }else{
            tempStr = value;
-           valueStr = valueStr + tempStr;//adding the sign
+
+           if(  (valueStr[ valueStr.length - 1 ] === '+' ||
+           valueStr[ valueStr.length - 1 ] === '-' ||
+           valueStr[ valueStr.length - 1 ] === '*' ||
+           valueStr[ valueStr.length - 1 ] === '/' ) && !value >= 0 ) {
+
+             valueStr = valueStr.split('');
+             valueStr[valueStr.length - 1] = value;
+             valueStr = valueStr.join('');
+           }else{
+             valueStr = valueStr + tempStr;//adding the sign
+           }
            isOpearationAdded = true;
            sign = tempStr;
            this.setState({ mainDisplay:tempStr });
