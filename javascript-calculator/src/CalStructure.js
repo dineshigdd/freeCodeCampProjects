@@ -40,10 +40,12 @@ class Calstructure extends React.Component {
                     tempStr = value.toString();
                      console.log("isAddingZero:" +isAddingZero)
                      if( !isAddingZero){
-                          valueStr = valueStr + value.toString();
+                          // if( tempStr !== '0'){//check this  wrong output 123 + 00. when attempting more than one zeros after + and before .
+                        valueStr =  value.toString();
+                        //  }
 
                       }else{
-                        console.log("this is 2md test")
+
                         valueStr = valueStr.split('');
                         valueStr[valueStr.length - 1] = value;
                         valueStr = valueStr.join('');
@@ -54,9 +56,35 @@ class Calstructure extends React.Component {
 
 
                 }else{
-                     tempStr = tempStr + value;
-                     console.log("test")
-                     valueStr = valueStr + value;
+
+                      if( !(tempStr.indexOf('.') > -1 && value === '.')){
+
+                            if( tempStr === '' && value === '.' ){
+                               tempStr = '0';
+                            }
+
+
+                              tempStr = tempStr + value;
+
+
+                            if( valueStr === '' && value === '.' ){
+                               valueStr = '0';
+                            }
+
+
+                            valueStr = valueStr + value;
+
+                            if( valueStr[valueStr.length - 1] === '.' &&
+                            (valueStr[valueStr.length - 2] === '+' || valueStr[valueStr.length - 2] === '-' ||
+                             valueStr[valueStr.length - 2] === '*' || valueStr[valueStr.length - 2] === '/')){
+
+                               valueStr = valueStr.split('');
+                               valueStr[valueStr.length - 1] = '0.';
+                               valueStr = valueStr.join('');
+
+                            }
+
+                      }
 
 
 
@@ -64,7 +92,7 @@ class Calstructure extends React.Component {
 
                        zeros = valueStr.match(/[+]0+|[-]0+|[*]0+|[/]0+/g);
                        console.log("zeros:" + zeros)
-                      
+
                     if(zeros !== null){
                        if( zeros.length >= 1 ){
 
@@ -75,7 +103,7 @@ class Calstructure extends React.Component {
 
                        //  var matchZeros = tempStr.match(/^[00]*(?!\.)/g);
                          console.log("zeros:" + zeros)
-                     console.log("tempStr:" +tempStr);
+                         console.log("tempStr:" +tempStr);
               }
 
 
