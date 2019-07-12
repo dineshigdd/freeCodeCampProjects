@@ -35,7 +35,7 @@ class Calstructure extends React.Component {
 
                      if( !isAddingZero){
 
-                        valueStr =  value.toString();                    
+                        valueStr =  value.toString();
 
                       }else{
 
