@@ -224,7 +224,10 @@ class Calstructure extends React.Component {
 
         negativeNum = valueStr.match(/-\d+(\.\d*)|-\d*/g);
         console.log(negativeNum);
-        positiveNum = valueStr.match(/^[^-]\d+(\.\d*)|^[^-]\d*|[+]\d+(\.\d*)|[+]\d*/g);
+
+        positiveNum = valueStr.match(/^\d+(\.\d*)|^\d*|[+]\d+(\.\d*)|[+]\d*/g); //^[^-]\d+(\.\d*)|^[^-]\d*|[+]\d+(\.\d*)|[+]\d*
+        console.log(test)
+
         console.log(positiveNum);
         if( positiveNum != null){
             for(let i = 0; i < positiveNum.length; i++ ){
