@@ -1,0 +1,9 @@
+/*https://css-tricks.com/quick-css-trick-how-to-center-an-object-exactly-in-the-center/ */
+#root{
+  position: fixed;
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -50%);
+  /* margin-top: -50px;
+  margin-left: -100px;   */
+}
