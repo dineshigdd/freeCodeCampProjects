@@ -11,15 +11,18 @@ class PomodoroClock extends React.Component{
     this.state = {
       breaklength:5,
       sessionlength:25
+      seconds:00;
     };
 
  this.reset = this.reset.bind(this);
+ this.runTimer = this.runTimer.bind(this);
   }
 
 runTimer(){
   //get the current timmer
-    
+
   // if timer is running , start_stop
+  setTimeout( this.state.seconds + 1, 1000);
 
   //else start
 }
@@ -68,7 +71,7 @@ render(){
     <div id="timer-container">
         <ul id="display">
             <li><div id="timer-label">Session</div>
-            <div id="time-left">{ this.state.sessionlength}:00</div></li>
+            <div id="time-left">{ this.state.sessionlength}: { this.state.seconds } </div></li>
         </ul>
         <ul id="control">
             <button id="start_stop" onClick={ this.runTimer }><i className="play icon"></i><i className="stop icon"></i></button>
