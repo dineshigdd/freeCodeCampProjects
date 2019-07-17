@@ -1,31 +1,50 @@
+//https://reactjs.org/docs/state-and-lifecycle.html#adding-lifecycle-methods-to-a-class
 import React from 'react';
 import ReactDom from 'react-dom';
 import '../src/styles.css';
 
-
+var isMytimer = 'off';
+let mytimer = '';
 class PomodoroClock extends React.Component{
   constructor(props){
     super(props);
 
-
+    mytimer = setInterval( () => this.timer(),1000);
     this.state = {
+      mytimer:'',
       breaklength:5,
-      sessionlength:25
-      seconds:00;
+      sessionlength:25,
+      seconds:'00'
     };
 
- this.reset = this.reset.bind(this);
- this.runTimer = this.runTimer.bind(this);
+  this.reset = this.reset.bind(this);
+
   }
 
-runTimer(){
-  //get the current timmer
 
-  // if timer is running , start_stop
-  setTimeout( this.state.seconds + 1, 1000);
 
-  //else start
-}
+timer(){
+ if( isMytimer === 'on'){
+   while( !isMytimer ){
+   console.log("isMytimer:" +isMytimer)
+   this.setState( { seconds: (this.state.seconds + 59)%60 });
+             if( this.state.seconds === 0 ){
+                   this.setState( { seconds: '00'});
+                   this.setState( { sessionlength: this.state.sessionlength - 1});
+             }
+
+             // if( isMytimer === 'off'){
+             //   clearInterval(this.mytimer);
+             // }
+  }
+
+  //   isMytimer = "off";
+  // }else{
+  //   console.log("isMytimer:" +isMytimer)
+  //   clearInterval(this.mytimer);
+  //   isMytimer = "on";
+  //   }
+  }
 
 
 reset(){
@@ -74,7 +93,7 @@ render(){
             <div id="time-left">{ this.state.sessionlength}: { this.state.seconds } </div></li>
         </ul>
         <ul id="control">
-            <button id="start_stop" onClick={ this.runTimer }><i className="play icon"></i><i className="stop icon"></i></button>
+            <button id="start_stop" onClick={ this.timer.bind(this) }><i className="play icon"></i><i className="stop icon"></i></button>
             <button id="reset" onClick={ this.reset }><i className="sync icon"></i></button>
         </ul>
         <ul id='settings'>
