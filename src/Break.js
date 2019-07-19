@@ -6,10 +6,9 @@ class Break extends React.Component {
   render(){
     return(
           <div>
-            this is break
+            <p>this is break</p>
 
           </div>
-
     );
   }
 }
