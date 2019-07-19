@@ -10,22 +10,32 @@ let mytimer = '';
 let isReset = false;
 
 class App extends React.Component{
-
   constructor(props){
     super(props);
 
-    let mytimer = setInterval( () => this.timer(),1000);
+    this.mytimer = setInterval( () => this.timer(),1000);
 
     this.state = {
-      mytimer:'',
       breaklength:5,
       sessionlength:25,
       minute:25,
       seconds:'00'
     };
 
-    this.addLeadingZerosTOSeconds.bind(this);
-    this.addLeadingZerosTOSession.bind(this);
+    this.reset = this.reset.bind(this);
+    this.timer = this.timer.bind(this);
+    this.timerController = this.timerController.bind(this);
+    this.addLeadingZerosTOSeconds = this.addLeadingZerosTOSeconds.bind(this);
+    this.addLeadingZerosTOSession = this.addLeadingZerosTOSession.bind(this);
+}
+
+reset(){
+  isReset = true;
+  this.setState( { sessionlength : 25 });
+  this.setState( { breaklength : 5 });
+  this.setState( { minute : '25' });
+  this.setState( { seconds: '00'});
+  clearInterval( this.mytimer);
 }
 
 addLeadingZerosTOSeconds( stateValue ){
@@ -46,26 +56,14 @@ addLeadingZerosTOSession( stateValue ){
   return session;
 }
 
-timerController(){
-  if( isReset ){
-    mytimer = setInterval( () => this.timer(),1000);
-  }else{
-    if( isMytimerRuning === 'off'){
-      isMytimerRuning = 'on';
-    }else{
-      isMytimerRuning = 'off';
-    }
-  }
-}
 
-timer(){
+ timer(){
   console.log("this is timer");
        if( isMytimerRuning === 'on'){
 
            this.setState( { seconds:  this.addLeadingZerosTOSeconds(this.state.seconds) });
                    if( this.state.seconds === "00" ){
-
-                         this.setState( { sessionlength:this.addLeadingZerosTOSession(this.state.sessionlength - 1) });
+                         this.setState( { minute:this.addLeadingZerosTOSession(this.state.minute - 1) });
                    }
         }else{
             clearInterval(mytimer);
@@ -74,6 +72,20 @@ timer(){
 
 }
 
+timerController(){
+  if( isReset ){
+    clearInterval(this.mytimer);
+    this.mytimer = setInterval( () => this.timer(),1000);
+
+  }else{
+    if( isMytimerRuning === 'off'){
+      isMytimerRuning = 'on';
+    }else{
+      isMytimerRuning = 'off';
+    }
+  }
+    isReset = false;
+}
 
   render(){
     return(
@@ -81,7 +93,8 @@ timer(){
       <DisplayPanel
           minute = { this.state.minute }
           seconds ={ this.state.seconds }
-          timer = { this.timer}/>
+          timerController = { this.timerController }
+          resetter = { this.reset }/>
       <ul id='settings'>
         <li><Break /></li>
         <li><Session /></li>
