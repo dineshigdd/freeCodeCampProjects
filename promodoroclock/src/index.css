@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -10,4 +11,104 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+=======
+/*https://css-tricks.com/quick-css-trick-how-to-center-an-object-exactly-in-the-center/ */
+#root{
+  position: fixed;
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -50%);
+  /* margin-top: -50px;
+  margin-left: -100px;   */
+}
+
+#display {
+  background-color: greenyellow;
+  border-top-left-radius: 100px;
+  border-top-right-radius: 100px;
+  width: 75%;
+  height: 125px;
+  position: relative;
+  left:9%;
+}
+
+#display>li{
+  position: relative;
+  left:30%;
+  top:15%;
+}
+
+#timer-label{
+  font-size: 25px;
+  margin-bottom: 20px;
+}
+
+#time-left{
+  /* padding-right: 10px; */
+  font-size: 30px;
+  font-weight: bolder;
+  color:red;
+}
+
+#control>button{
+  margin: 5px;
+  width: 100px;
+  height: 30px;
+  position: relative;
+  left: 14%;
+}
+
+#settings>li{
+  display: inline-flex;
+  margin: 10px;
+}
+
+li{
+    list-style: none;
+}
+
+
+.settings-btn-move{
+  display: inline-flex;
+  position: relative;
+  top: 15px;
+  left: -10px;
+}
+
+#settings-session-btn-move{
+  position: relative;
+  left: -30px;
+}
+
+#break-decrement,#break-increment,
+#session-decrement,#session-increment{
+  width:50px;
+  height:50px;
+}
+
+#break-length, #session-length {
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-top:15px;
+}
+
+#break-label{
+    background-color: #338DFF;
+    padding: 5px 0px 5px 0px;
+    margin-right: 75px;
+    text-align: center;
+}
+
+#session-label{
+  background-color: #338DFF;
+  padding: 5px 0px 5px 0px;
+  margin-right: 75px;
+  text-align: center;
+}
+
+
+#session-label{
+  position: relative;
+  left: -15%;
+>>>>>>> master
 }
