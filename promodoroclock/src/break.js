@@ -1,8 +1,5 @@
 import React from 'react';
 
-
-
-
 class Break extends React.Component {
 
   render(){
