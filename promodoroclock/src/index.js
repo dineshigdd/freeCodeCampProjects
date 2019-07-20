@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Break from './break';
 import Session from './session';
-import DisplayPanel from './display-panel'
+import DisplayPanel from './display-panel';
 import './index.css';
 
 let isMytimerRuning = 'off';
@@ -96,7 +96,7 @@ timerController(){
           timerController = { this.timerController }
           resetter = { this.reset }/>
       <ul id='settings'>
-        <li><Break /></li>
+        <li><Break breaklength = { this.state.breaklength }/></li>
         <li><Session /></li>
       </ul>
       </div>
