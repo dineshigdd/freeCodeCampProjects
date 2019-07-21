@@ -97,7 +97,7 @@ timerController(){
           resetter = { this.reset }/>
       <ul id='settings'>
         <li><Break breaklength = { this.state.breaklength }/></li>
-        <li><Session /></li>
+        <li><Session sessionlength = { this.state.sessionlength }/></li>
       </ul>
       </div>
     );
