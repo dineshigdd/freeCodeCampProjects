@@ -2,9 +2,12 @@ import React from 'react';
 
 class DisplayPanel extends React.Component {
 
-  // if( props.minute ==='00' && props.seconds ==='00' && props.timerLabel === 'Session' ){
-  //     this.props.timerLabel = 'Break';
-  // }
+
+  componentDidMount(){
+      if( this.props.minute ==='00' && this.props.seconds ==='00' && this.props.timerLabel === 'Session' ){
+          this.props.timerLabel = 'Break';
+      }
+  }
 
   render(){
     return(

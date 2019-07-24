@@ -13,7 +13,7 @@ class App extends React.Component{
   constructor(props){
     super(props);
 
-    this.mytimer = setInterval( () => this.timer(),1000);
+    this.mytimer = setInterval( () => this.timer(),10);
 
     this.state = {
       timerLabel:'Session',
@@ -27,7 +27,8 @@ class App extends React.Component{
     this.timer = this.timer.bind(this);
     this.timerController = this.timerController.bind(this);
     this.addLeadingZerosTOSeconds = this.addLeadingZerosTOSeconds.bind(this);
-    this.addLeadingZerosTOSession = this.addLeadingZerosTOSession.bind(this);
+    this.addLeadingZerosTOSession = this.addLeadingZerosTOSession.bind(this); 
+    //this.changeSessionBreak = this.changeSessionBreak.bind(this);
 }
 
 reset(){
@@ -66,11 +67,25 @@ addLeadingZerosTOSession( stateValue ){
                    if( this.state.seconds === "00" ){
                          this.setState( { minute:this.addLeadingZerosTOSession(this.state.minute - 1) });
                    }
+
+          this.changeSessionBreak();
         }else{
             clearInterval(mytimer);
 
         }
 
+}
+
+changeSessionBreak(){
+   if( this.state.minute ==='00' && this.state.seconds ==='00' && this.state.timerLabel === 'Session' ){
+
+          this.setState( { minute:this.addLeadingZerosTOSession(this.state.breaklength) });
+          this.state.timerLabel = 'Break';
+
+      }else if( this.state.minute ==='00' && this.state.seconds ==='00' && this.state.timerLabel === 'Break' ){
+          this.setState( { minute:this.addLeadingZerosTOSession(this.state.sessionlength) });
+          this.state.timerLabel = 'Session';
+      }
 }
 
 timerController(){
