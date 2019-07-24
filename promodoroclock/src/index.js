@@ -16,6 +16,7 @@ class App extends React.Component{
     this.mytimer = setInterval( () => this.timer(),1000);
 
     this.state = {
+      timerLabel:'Session',
       breaklength:5,
       sessionlength:25,
       minute:25,
@@ -74,7 +75,7 @@ addLeadingZerosTOSession( stateValue ){
 
 timerController(){
   if( isReset ){
-    clearInterval(this.mytimer);
+    clearInterval(mytimer);
     this.mytimer = setInterval( () => this.timer(),1000);
 
   }else{
@@ -91,6 +92,7 @@ timerController(){
     return(
       <div id="timer-container">
       <DisplayPanel
+          timerLabel = { this.state.timerLabel }
           minute = { this.state.minute }
           seconds ={ this.state.seconds }
           timerController = { this.timerController }

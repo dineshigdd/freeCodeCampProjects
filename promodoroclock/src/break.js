@@ -29,7 +29,7 @@ class Break extends React.Component {
           <div id="break-label">Break Length</div>
             <div className='settings-btn-move'>
                 <button id="break-decrement" onClick={ () => this.getBreakLength("decrement")}><i className="angle down icon"></i></button>
-                <div id="break-length" className="div-padding"> { this.state.breaklength }</div>
+                <div id="break-length" className="div-padding">{this.state.breaklength}</div>
                 <button id="break-increment" onClick={ () => this.getBreakLength("increment")}><i className="angle up icon"></i></button>
             </div>
         </div>
