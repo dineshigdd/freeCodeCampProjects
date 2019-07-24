@@ -18,6 +18,8 @@ class Session extends React.Component {
              length = increment( "sessionlength",this.state.sessionlength );
          }
        this.setState( { sessionlength: length });
+
+       this.props.getLength( length, 'session');
   }
 
   render(){

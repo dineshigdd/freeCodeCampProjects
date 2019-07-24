@@ -22,6 +22,8 @@ class Break extends React.Component {
               length = increment( "breaklength",this.state.breaklength );
           }
         this.setState( { breaklength: length });
+
+        this.props.getLength( length , 'break');
    }
 
   render(){

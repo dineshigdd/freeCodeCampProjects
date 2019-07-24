@@ -16,6 +16,7 @@ class App extends React.Component{
     this.mytimer = setInterval( () => this.timer(),10);
 
     this.state = {
+      isSession : true,
       timerLabel:'Session',
       breaklength:5,
       sessionlength:25,
@@ -28,6 +29,7 @@ class App extends React.Component{
     this.timerController = this.timerController.bind(this);
     this.addLeadingZerosTOSeconds = this.addLeadingZerosTOSeconds.bind(this);
     this.addLeadingZerosTOSession = this.addLeadingZerosTOSession.bind(this); 
+    this.getLength = this.getLength.bind(this);
     //this.changeSessionBreak = this.changeSessionBreak.bind(this);
 }
 
@@ -80,11 +82,14 @@ changeSessionBreak(){
    if( this.state.minute ==='00' && this.state.seconds ==='00' && this.state.timerLabel === 'Session' ){
 
           this.setState( { minute:this.addLeadingZerosTOSession(this.state.breaklength) });
-          this.state.timerLabel = 'Break';
+          this.setState( { timerLabel : 'Break' } );
+          this.setState( { isSession : false } );
 
       }else if( this.state.minute ==='00' && this.state.seconds ==='00' && this.state.timerLabel === 'Break' ){
           this.setState( { minute:this.addLeadingZerosTOSession(this.state.sessionlength) });
-          this.state.timerLabel = 'Session';
+          this.setState( { timerLabel : 'Session' } );
+          this.setState( { isSession : true } );
+
       }
 }
 
@@ -100,7 +105,25 @@ timerController(){
       isMytimerRuning = 'off';
     }
   }
-    isReset = false;
+    isReset = false; 
+}
+
+getLength( length , type ){
+  if( this.state.isSession && type === 'session' ){
+      this.setState( { sessionlength : length });
+      this.setState( {minute : length });
+
+  }else if( !this.state.isSession && type === 'session' ){
+      this.setState( { sessionlength : length });
+
+  } else if( !this.state.isSession && type === 'break' ){
+      this.setState( { breaklength: length })
+      this.setState( {minute : length });
+
+  } else{
+      this.setState( { breaklength: length })
+  }
+ 
 }
 
   render(){
@@ -113,8 +136,8 @@ timerController(){
           timerController = { this.timerController }
           resetter = { this.reset }/>
       <ul id='settings'>
-        <li><Break breaklength = { this.state.breaklength }/></li>
-        <li><Session sessionlength = { this.state.sessionlength }/></li>
+        <li><Break breaklength = { this.state.breaklength } getLength = { this.getLength }/></li>
+        <li><Session sessionlength = { this.state.sessionlength } getLength = { this.getLength }/></li>
       </ul>
       </div>
     );
