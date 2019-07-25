@@ -9,7 +9,7 @@ class DisplayPanel extends React.Component {
     return(
           <div>
               <ul id="display">
-                    <li><div id="timer-label">{this.props.timerLabel}</div>
+                    <li><div id="timer-label">{ this.props.timerLabel }</div>
                     <div id="time-left">{ this.props.minute }:{this.props.seconds}</div></li>
                 </ul>
                 <ul id="control">

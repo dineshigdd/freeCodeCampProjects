@@ -5,17 +5,19 @@ import Session from './session';
 import DisplayPanel from './display-panel';
 import './index.css';
 
-let isMytimerRuning = 'off';
+//let isMytimerRuning = false;
 let mytimer = '';
-let isReset = false;
+
 
 class App extends React.Component{
   constructor(props){
     super(props);
 
-    this.mytimer = setInterval( () => this.timer(),10);
+    this.mytimer = setInterval( () => this.timer(),1000);
 
     this.state = {
+      isReset : false,
+      isMytimerRuning:false,
       isSession : true,
       timerLabel:'Session',
       breaklength:5,
@@ -34,10 +36,12 @@ class App extends React.Component{
 }
 
 reset(){
-  isReset = true;
+  this.setState( { isReset : true });
+  this.setState( { isMytimerRuning : false });
+  this.setState( { timerLabel: 'Session'});
   this.setState( { sessionlength : 25 });
   this.setState( { breaklength : 5 });
-  this.setState( { minute : '25' });
+  this.setState( { minute : 25 });
   this.setState( { seconds: '00'});
   clearInterval( this.mytimer);
 }
@@ -63,10 +67,10 @@ addLeadingZerosTOSession( stateValue ){
 
  timer(){
   console.log("this is timer");
-       if( isMytimerRuning === 'on'){
+       if( this.state.isMytimerRuning ){
 
            this.setState( { seconds:  this.addLeadingZerosTOSeconds(this.state.seconds) });
-                   if( this.state.seconds === "00" ){
+                   if( this.state.seconds === 59 ){
                          this.setState( { minute:this.addLeadingZerosTOSession(this.state.minute - 1) });
                    }
 
@@ -86,6 +90,7 @@ changeSessionBreak(){
           this.setState( { isSession : false } );
 
       }else if( this.state.minute ==='00' && this.state.seconds ==='00' && this.state.timerLabel === 'Break' ){
+
           this.setState( { minute:this.addLeadingZerosTOSession(this.state.sessionlength) });
           this.setState( { timerLabel : 'Session' } );
           this.setState( { isSession : true } );
@@ -94,35 +99,43 @@ changeSessionBreak(){
 }
 
 timerController(){
-  if( isReset ){
+
+  if( this.state.isReset ){
     clearInterval(mytimer);
     this.mytimer = setInterval( () => this.timer(),1000);
 
   }else{
-    if( isMytimerRuning === 'off'){
-      isMytimerRuning = 'on';
+    if( !this.state.isMytimerRuning ){
+      this.setState( { isMytimerRuning : true});
     }else{
-      isMytimerRuning = 'off';
+      this.setState( { isMytimerRuning : false});
     }
   }
-    isReset = false; 
+      this.setState( { isReset : false });
+       console.log("this.state.isMytimerRuning:" +this.state.isMytimerRuning );
 }
 
 getLength( length , type ){
-  if( this.state.isSession && type === 'session' ){
-      this.setState( { sessionlength : length });
-      this.setState( {minute : length });
+  
+  
+    if( this.state.isSession && type === 'session' ){
+        this.setState( { seconds:'00'});
+        this.setState( { sessionlength : length });
+        this.setState( {minute : this.addLeadingZerosTOSession(length) });
 
-  }else if( !this.state.isSession && type === 'session' ){
-      this.setState( { sessionlength : length });
+    }else if( !this.state.isSession && type === 'session' ){
+;
+        this.setState( { sessionlength : length });
 
-  } else if( !this.state.isSession && type === 'break' ){
-      this.setState( { breaklength: length })
-      this.setState( {minute : length });
+    } else if( !this.state.isSession && type === 'break' ){
+        this.setState( { seconds:'00'});
+        this.setState( { breaklength: length })
+        this.setState( {minute : this.addLeadingZerosTOSession(length) });
 
-  } else{
-      this.setState( { breaklength: length })
-  }
+    } else {        
+        this.setState( { breaklength: length })
+    }
+  
  
 }
 
@@ -136,11 +149,20 @@ getLength( length , type ){
           timerController = { this.timerController }
           resetter = { this.reset }/>
       <ul id='settings'>
-        <li><Break breaklength = { this.state.breaklength } getLength = { this.getLength }/></li>
-        <li><Session sessionlength = { this.state.sessionlength } getLength = { this.getLength }/></li>
+        <li><Break 
+          breaklength = { this.state.breaklength } 
+          getLength = { this.getLength }
+          timerStatus = { this.state.isMytimerRuning }
+          resetStatus = { this.state.isReset }/></li>
+        <li><Session 
+          sessionlength = { this.state.sessionlength } 
+          getLength = { this.getLength }
+          timerStatus = { this.state.isMytimerRuning }
+          resetStatus = { this.state.isReset }/></li>
       </ul>
       </div>
     );
   }
 }
+
 ReactDOM.render(<App />, document.getElementById('root'));
