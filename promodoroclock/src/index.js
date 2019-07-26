@@ -71,7 +71,8 @@ addLeadingZerosTOSession( stateValue ){
 
            this.setState( { seconds:  this.addLeadingZerosTOSeconds(this.state.seconds) });
                    if( this.state.seconds === 59 ){
-                         this.setState( { minute:this.addLeadingZerosTOSession(this.state.minute - 1) });
+                         let test = (this.state.minute - 1)% this.state.minute;
+                         this.setState( { minute:this.addLeadingZerosTOSession(test)} );
                    }
 
           this.changeSessionBreak();
@@ -83,15 +84,15 @@ addLeadingZerosTOSession( stateValue ){
 }
 
 changeSessionBreak(){
-   if( this.state.minute ==='00' && this.state.seconds ==='00' && this.state.timerLabel === 'Session' ){
+   if( this.state.minute ==='00' && this.state.seconds === '00' && this.state.timerLabel === 'Session' ){
 
           this.setState( { minute:this.addLeadingZerosTOSession(this.state.breaklength) });
           this.setState( { timerLabel : 'Break' } );
           this.setState( { isSession : false } );
 
-      }else if( this.state.minute ==='00' && this.state.seconds ==='00' && this.state.timerLabel === 'Break' ){
+      }else if( this.state.minute ==='00' && this.state.seconds === '00' && this.state.timerLabel === 'Break' ){
 
-          this.setState( { minute:this.addLeadingZerosTOSession(this.state.sessionlength) });
+          //this.setState( { minute:this.addLeadingZerosTOSession(this.state.sessionlength) });
           this.setState( { timerLabel : 'Session' } );
           this.setState( { isSession : true } );
 
