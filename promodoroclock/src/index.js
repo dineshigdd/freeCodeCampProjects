@@ -8,6 +8,9 @@ import './index.css';
 //let isMytimerRuning = false;
 let mytimer = '';
 
+let test = 0;
+let counter = 1;
+let length = 0;
 
 class App extends React.Component{
   constructor(props){
@@ -33,9 +36,11 @@ class App extends React.Component{
     this.addLeadingZerosTOSession = this.addLeadingZerosTOSession.bind(this); 
     this.getLength = this.getLength.bind(this);
     //this.changeSessionBreak = this.changeSessionBreak.bind(this);
+    length = this.state.sessionlength;
 }
 
 reset(){
+  counter = 1;
   this.setState( { isReset : true });
   this.setState( { isMytimerRuning : false });
   this.setState( { timerLabel: 'Session'});
@@ -65,34 +70,49 @@ addLeadingZerosTOSession( stateValue ){
 }
 
 
- timer(){
-  console.log("this is timer");
-       if( this.state.isMytimerRuning ){
+ timer(){     
 
+       if( this.state.isMytimerRuning ){
+        console.log("this is timer");
            this.setState( { seconds:  this.addLeadingZerosTOSeconds(this.state.seconds) });
                    if( this.state.seconds === 59 ){
-                         let test = (this.state.minute - 1)% this.state.minute;
+                         //this.setState( { sessionlength: this.state.sessionlength - 1 } );
+                        
+                          test = (( length * counter) + (this.state.minute - 1 )%(length ))% length;
+                          if( test === 0){
+                            counter = counter + 1;
+                
+                          }
+
+                         
                          this.setState( { minute:this.addLeadingZerosTOSession(test)} );
+                        
                    }
 
           this.changeSessionBreak();
         }else{
-            clearInterval(mytimer);
+           clearInterval(mytimer);
 
         }
 
 }
 
 changeSessionBreak(){
-   if( this.state.minute ==='00' && this.state.seconds === '00' && this.state.timerLabel === 'Session' ){
-
+   if(  test === 0 && Number(this.state.seconds) === 0 && this.state.timerLabel === 'Session' ){
+    counter = 1;
+    length = this.state.breaklength;
+          setTimeout(function(){       
           this.setState( { minute:this.addLeadingZerosTOSession(this.state.breaklength) });
           this.setState( { timerLabel : 'Break' } );
+          },1000);  
           this.setState( { isSession : false } );
+        
 
-      }else if( this.state.minute ==='00' && this.state.seconds === '00' && this.state.timerLabel === 'Break' ){
-
-          //this.setState( { minute:this.addLeadingZerosTOSession(this.state.sessionlength) });
+      }else if(  test === 0 && this.state.seconds === '01' && this.state.timerLabel === 'Break' ){
+        
+          counter = 1;
+          length = this.state.sessionlength;
+          this.setState( { minute:this.addLeadingZerosTOSession(this.state.sessionlength) });
           this.setState( { timerLabel : 'Session' } );
           this.setState( { isSession : true } );
 
@@ -104,7 +124,7 @@ timerController(){
   if( this.state.isReset ){
     clearInterval(mytimer);
     this.mytimer = setInterval( () => this.timer(),1000);
-
+    this.setState( { isMytimerRuning : true });
   }else{
     if( !this.state.isMytimerRuning ){
       this.setState( { isMytimerRuning : true});
