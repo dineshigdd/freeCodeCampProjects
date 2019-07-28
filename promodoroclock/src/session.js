@@ -7,12 +7,14 @@ class Session extends React.Component {
     super(props);
 
     this.state = { sessionlength: this.props.sessionlength };
+    console.log("I am the seesion constructor")
     this.getSessionLength = this.getSessionLength.bind(this);
 }
-
+  
+  
   getSessionLength(incrementDecrement){
       let  length = 0;
-      console.log("isMytimerRuning inSession:" + this.props.timerStatus );
+      console.log("sessionlength insession:" + this.state.sessionlength);
       if( !this.props.timerStatus ){
              if( incrementDecrement === "decrement" ){
                  length = decrement( "sessionlength",this.state.sessionlength );
@@ -25,11 +27,21 @@ class Session extends React.Component {
      }
   }
 
-  render(){
-
   
+  componentWillReceiveProps(nextProps) {
+  
+    if( nextProps.sessionlength !==  this.props.sessionlength)
+      this.setState({ sessionlength : nextProps.sessionlength }) ;
+    
+  }
+
+  render(){
+    
+    
+   
     let sessionlength  = '';
     if( this.props.resetStatus === true ){
+      console.log("this.props.resetStatus "+this.props.resetStatus );
       sessionlength  = this.props.sessionlength ;
     }else{
       sessionlength  = this.state.sessionlength;

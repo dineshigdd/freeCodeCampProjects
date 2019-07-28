@@ -1,6 +1,6 @@
 module.exports =  {
   decrement : function(type , length ){
-
+    
     if(  type === 'breaklength' ){
         if(  length < 2 ){
                 return 1;// this.setState({ breaklength : 1 });

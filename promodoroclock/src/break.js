@@ -5,10 +5,8 @@ import { increment } from './control-panel';
 class Break extends React.Component {
   constructor(props){
     super(props);
-    this.state = { breaklength: this.props.breaklength };
     
-    // decrement.bind(this,"breaklength",this.state.breaklength );
-    // increment.bind(this,"breaklength",this.state.breaklength );
+    this.state = { breaklength: this.props.breaklength };
     this.getBreakLength = this.getBreakLength.bind(this);
   }
 
@@ -31,6 +29,12 @@ class Break extends React.Component {
       }
    }
 
+   componentWillReceiveProps(nextProps) {
+  
+    if( nextProps.breaklength !==  this.props.breaklength)
+      this.setState({ breaklength : nextProps.breaklength }) ;
+    
+  }
 
   render(){
     
@@ -41,7 +45,7 @@ class Break extends React.Component {
       breaklength = this.state.breaklength;
     }
 
-    console.log("this.props.breaklength ")
+    
     return(
       <div>
           <div id="break-label">Break Length</div>

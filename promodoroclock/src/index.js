@@ -36,12 +36,13 @@ class App extends React.Component{
     this.addLeadingZerosTOSession = this.addLeadingZerosTOSession.bind(this); 
     this.getLength = this.getLength.bind(this);
     //this.changeSessionBreak = this.changeSessionBreak.bind(this);
-    length = this.state.sessionlength;
+    // length = this.state.sessionlength;
 }
 
 reset(){
-  counter = 1;
+  
   this.setState( { isReset : true });
+  this.setState( { isSession: true });
   this.setState( { isMytimerRuning : false });
   this.setState( { timerLabel: 'Session'});
   this.setState( { sessionlength : 25 });
@@ -61,10 +62,15 @@ addLeadingZerosTOSeconds( stateValue ){
 }
 
 addLeadingZerosTOSession( stateValue ){
-  let session = Number(stateValue);
+  let session = Number(stateValue );
   if( session < 10 ){
+
+    if( session < 0 ){
+      return -1;
+    }
     session = '0' + session;
   }
+ 
 
   return session;
 }
@@ -75,21 +81,12 @@ addLeadingZerosTOSession( stateValue ){
        if( this.state.isMytimerRuning ){
         console.log("this is timer");
            this.setState( { seconds:  this.addLeadingZerosTOSeconds(this.state.seconds) });
-                   if( this.state.seconds === 59 ){
-                         //this.setState( { sessionlength: this.state.sessionlength - 1 } );
-                        
-                          test = (( length * counter) + (this.state.minute - 1 )%(length ))% length;
-                          if( test === 0){
-                            counter = counter + 1;
-                
-                          }
-
-                         
-                         this.setState( { minute:this.addLeadingZerosTOSession(test)} );
-                        
+                   if( this.state.seconds === 59 ){                  
+                         this.setState( { minute:this.addLeadingZerosTOSession(this.state.minute - 1)} );
+                         this.changeSessionBreak();
                    }
 
-          this.changeSessionBreak();
+                  
         }else{
            clearInterval(mytimer);
 
@@ -98,24 +95,19 @@ addLeadingZerosTOSession( stateValue ){
 }
 
 changeSessionBreak(){
-   if(  test === 0 && Number(this.state.seconds) === 0 && this.state.timerLabel === 'Session' ){
-    counter = 1;
-    length = this.state.breaklength;
-          setTimeout(function(){       
-          this.setState( { minute:this.addLeadingZerosTOSession(this.state.breaklength) });
-          this.setState( { timerLabel : 'Break' } );
-          },1000);  
+   if( this.state.minute === -1 && this.state.seconds === 59 && this.state.timerLabel === 'Session' ){
+    
+          this.setState( { minute:this.addLeadingZerosTOSession(this.state.breaklength ) }) 
+          this.setState( { timerLabel : 'Break' } );        
           this.setState( { isSession : false } );
-        
-
-      }else if(  test === 0 && this.state.seconds === '01' && this.state.timerLabel === 'Break' ){
-        
-          counter = 1;
-          length = this.state.sessionlength;
+          this.setState( { seconds: '00'});
+          
+      }else if( this.state.minute === -1 && this.state.seconds === 59 && this.state.timerLabel === 'Break' ){
+    
           this.setState( { minute:this.addLeadingZerosTOSession(this.state.sessionlength) });
           this.setState( { timerLabel : 'Session' } );
           this.setState( { isSession : true } );
-
+          this.setState( { seconds: '00'});
       }
 }
 
@@ -136,16 +128,17 @@ timerController(){
        console.log("this.state.isMytimerRuning:" +this.state.isMytimerRuning );
 }
 
+
 getLength( length , type ){
-  
-  
+
+
     if( this.state.isSession && type === 'session' ){
         this.setState( { seconds:'00'});
         this.setState( { sessionlength : length });
         this.setState( {minute : this.addLeadingZerosTOSession(length) });
 
     }else if( !this.state.isSession && type === 'session' ){
-;
+
         this.setState( { sessionlength : length });
 
     } else if( !this.state.isSession && type === 'break' ){
@@ -161,7 +154,8 @@ getLength( length , type ){
 }
 
   render(){
-    return(
+    
+      return(
       <div id="timer-container">
       <DisplayPanel
           timerLabel = { this.state.timerLabel }
