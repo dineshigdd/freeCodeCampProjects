@@ -8,10 +8,6 @@ import './index.css';
 //let isMytimerRuning = false;
 let mytimer = '';
 
-let test = 0;
-let counter = 1;
-let length = 0;
-
 class App extends React.Component{
   constructor(props){
     super(props);
@@ -35,8 +31,7 @@ class App extends React.Component{
     this.addLeadingZerosTOSeconds = this.addLeadingZerosTOSeconds.bind(this);
     this.addLeadingZerosTOSession = this.addLeadingZerosTOSession.bind(this); 
     this.getLength = this.getLength.bind(this);
-    //this.changeSessionBreak = this.changeSessionBreak.bind(this);
-    // length = this.state.sessionlength;
+    
 }
 
 reset(){
