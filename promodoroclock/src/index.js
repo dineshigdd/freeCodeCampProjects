@@ -5,15 +5,16 @@ import Session from './session';
 import DisplayPanel from './display-panel';
 import './index.css';
 
-//let isMytimerRuning = false;
-let mytimer = '';
 
+let mytimer = '';
+let alarmSound = '';
 class App extends React.Component{
   constructor(props){
     super(props);
 
     this.mytimer = setInterval( () => this.timer(),1000);
-
+   
+    
     this.state = {
       isReset : false,
       isMytimerRuning:false,
@@ -34,6 +35,10 @@ class App extends React.Component{
     
 }
 
+componentDidMount(){
+  this.alarmSound = document.getElementById('beep');
+}
+
 reset(){
   
   this.setState( { isReset : true });
@@ -44,6 +49,8 @@ reset(){
   this.setState( { breaklength : 5 });
   this.setState( { minute : 25 });
   this.setState( { seconds: '00'});
+  this.alarmSound.pause();
+  this.alarmSound.currentTime = 0;
   clearInterval( this.mytimer);
 }
 
@@ -89,13 +96,17 @@ addLeadingZerosTOSession( stateValue ){
 
 }
 
-changeSessionBreak(){
+changeSessionBreak(){ 
+ 
+  
    if( this.state.minute === -1 && this.state.seconds === 59 && this.state.timerLabel === 'Session' ){
     
           this.setState( { minute:this.addLeadingZerosTOSession(this.state.breaklength ) }) 
           this.setState( { timerLabel : 'Break' } );        
           this.setState( { isSession : false } );
           this.setState( { seconds: '00'});
+          this.alarmSound.play();
+        
           
       }else if( this.state.minute === -1 && this.state.seconds === 59 && this.state.timerLabel === 'Break' ){
     
@@ -103,6 +114,7 @@ changeSessionBreak(){
           this.setState( { timerLabel : 'Session' } );
           this.setState( { isSession : true } );
           this.setState( { seconds: '00'});
+          this.alarmSound.play()
       }
 }
 
@@ -170,7 +182,11 @@ getLength( length , type ){
           timerStatus = { this.state.isMytimerRuning }
           resetStatus = { this.state.isReset }/></li>
       </ul>
+          <audio id='beep'>
+              <source  src="http://free-screensavers-backgrounds.com/ringtones/funny/alarm-clock.mp3" type="audio/mpeg"></source>
+          </audio>
       </div>
+      
     );
   }
 }
