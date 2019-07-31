@@ -1,10 +1,9 @@
-/*https://css-tricks.com/quick-css-trick-how-to-center-an-object-exactly-in-the-center/ */
 #root{
   position: fixed;
   top:50%;
   left:50%;
   transform: translate(-50%, -50%);
-  /* margin-top: -50px;
+/*   margin-top: -50px;
   margin-left: -100px;   */
 }
 
@@ -38,15 +37,14 @@
 
 #control>button{
   margin: 5px;
-  width: 100px;
-  height: 30px;
-  position: relative;
-  left: 14%;
+  width: 39%;
+  height: 30px;  
+  border-radius:10px;
 }
 
 #settings>li{
   display: inline-flex;
-  margin: 10px;
+  margin: 10px;  
 }
 
 li{
@@ -59,26 +57,37 @@ li{
   position: relative;
   top: 15px;
   left: -10px;
+  width:35px;
+  height:35px;  
 }
 
 #settings-session-btn-move{
   position: relative;
-  left: -30px;
+  left: -30px; 
 }
 
 #break-decrement,#break-increment,
 #session-decrement,#session-increment{
-  width:50px;
-  height:50px;
+  position:relative;
+  left:30%;
+  width:40px;
+  height:45px;
+  border-radius:15px; 
 }
 
 #break-length, #session-length {
+   position:relative;
+   left:30%; 
+    min-width:35px;   
+    text-align:center;
     padding-left: 10px;
     padding-right: 10px;
-    margin-top:15px;
+    margin-top:15px;    
 }
 
-#break-label{
+#break-label{    
+    position:relative;
+    left:12%;
     background-color: #338DFF;
     padding: 5px 0px 5px 0px;
     margin-right: 75px;
@@ -90,10 +99,78 @@ li{
   padding: 5px 0px 5px 0px;
   margin-right: 75px;
   text-align: center;
-}
-
-
-#session-label{
   position: relative;
   left: -15%;
 }
+
+
+
+
+@media (min-width: 399px) and (max-width:803px){
+  #display{
+    width:100%;
+  }
+  
+#settings>li {
+    display: inline-flex;
+    margin: 0px;
+    padding: 0px;
+}
+  #break-label {
+    margin-left:-40%;
+    
+  }
+  
+  #session-label{
+    margin-top:10%;
+    margin-left:-30%
+  }
+  
+  
+  .settings-btn-move{
+    margin-left:-20%;
+  }
+   
+}
+
+
+  
+  
+@media (max-width: 804px) {  
+  #timer-label{  
+   
+    position:relative;
+    left:-4%;
+    top:10px;
+  }
+  
+  #time-left{   
+    position:relative;
+    left:-5%;
+    top:10px;
+  }
+
+  #break-label {
+    position:relative;
+    left:60%;
+  }
+  
+  #session-label{
+    position:relative;
+    left:50%;
+    top:25%;
+  }
+  
+  .settings-btn-move{
+    position:relative;
+    left:49%;
+  }
+  
+  #settings-session-btn-move{
+    position:relative;
+    left:45%;
+    top:25px;;
+  }
+
+}
+
