@@ -1,10 +1,5 @@
 var twitterFeed;
 
-$("#btnTweet").click(function(){
-    var quote = new String(twitterFeed.quoteText+" ~ " + twitterFeed.quoteAuthor)+" ~ ";
-                window.open("https://twitter.com/intent/tweet?text="+quote);
-    });
-
 
 
 $(document).ready(function(){    
@@ -20,6 +15,14 @@ $(document).ready(function(){
         document.body.style.backgroundColor = hexNumber;
         document.getElementById("divquote").style.color = hexNumber;
     });
+
+
+    $("#btnTweet").click(function(){
+    
+        var quote = new String(twitterFeed.quoteText+" ~ " + twitterFeed.quoteAuthor)+" ~ ";
+                    window.open("https://twitter.com/intent/tweet?text="+quote);
+        });
+        
 });
 
 function getRandomHexnumber(){
