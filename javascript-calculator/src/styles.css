@@ -1,0 +1,81 @@
+
+#outer-wrapper{
+  padding:30px;
+  text-align: center;
+}
+
+#inner-wrapper{
+     display: inline-block;
+     padding: 50px;
+}
+
+#sub-display{
+  position: relative;
+  left: -60px;
+  top:-30px;
+  text-align:right;
+}
+
+#display{
+  text-align: right;
+  background-color: lightgray;
+  width: 425px;
+  height: 50px;
+  padding-left:15px;
+  padding-top: 25px;
+  position: relative;
+  left: -15px;
+  bottom:30px
+}
+
+li{
+  text-align:center;
+  list-style:none;
+  display: inline;
+  padding: 50px;
+  background-color: lightgreen;
+  border:solid grey 1px;
+  }
+
+#clear{
+  padding: 48px 148px;
+  position: relative;
+  left: -60px;
+  top: 10px;
+}
+
+#divide {
+  position: relative;
+  left: -60px;
+  top: 12px;
+}
+
+#one , #two , #three , #add{
+  position: relative;
+  top:280px;
+  left:-58px;
+}
+
+#four,#five, #six,#subtract{
+  position: relative;
+  top:190px;
+  left:-60px;
+}
+
+#seven, #eight,#nine, #multiply{
+  position: relative;
+  left: -60px;
+  top: 100px;
+}
+
+#zero , #decimal , #equals{
+  position: relative;
+  top: 370px;
+  left: -58px;
+}
+
+ #equals{
+    text-align: right;
+    padding-left:102px;
+    padding-right: 102px;
+ }
