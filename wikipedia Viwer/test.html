@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>SO question 2803532</title>
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('input.deletable').wrap('<span class="deleteicon" />').after($('<span/>').click(function() {
+                    $(this).prev('input').val('').focus();
+                }));
+            });
+        </script>
+        <style>
+            span.deleteicon {
+                position: relative;
+            }
+            span.deleteicon span {
+                position: absolute;
+                display: block;
+                top: 5px;
+                right: 0px;
+                width: 16px;
+                height: 16px;
+                background: url('http://cdn.sstatic.net/stackoverflow/img/sprites.png?v=4') 0 -690px;
+                cursor: pointer;
+            }
+            span.deleteicon input {
+                padding-right: 16px;
+            }
+        </style>
+    </head>
+    <body>
+        <input type="text" class="deletable">
+    </body>
+</html>

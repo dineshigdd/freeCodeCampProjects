@@ -1,0 +1,15 @@
+{
+"batchcomplete":"",
+"query":{
+	"normalized":[{"from":"man","to":"Man"}],
+	"pages":{
+		"15822899":
+			  {
+			  "pageid":15822899,
+			  "ns":0,
+			  "title":"Man"
+			  }
+		}
+	}
+
+}

@@ -1,0 +1,70 @@
+<!--        BANNER ACROSS TOP OF PAGE         -->
+<div id="mp-topbanner" style="clear:both; position:relative; box-sizing:border-box; width:100%; margin:1.2em 0 6px; min-width:47em; border:1px solid #ddd; background-color:#f9f9f9; color:#000; white-space:nowrap;">
+<!--        "WELCOME TO WIKIPEDIA" AND ARTICLE COUNT        -->
+<div style="margin:0.4em; width:22em; text-align:center;">
+<div style="font-size:162%; padding:.1em;">Welcome to [[Wikipedia]],</div>
+<div style="font-size:95%;">the [[free content|free]] [[encyclopedia]] that [[Wikipedia:Introduction|anyone can edit]].</div>
+<div id="articlecount" style="font-size:85%;">[[Special:Statistics|{{NUMBEROFARTICLES}}]] articles in [[English language|English]]</div>
+</div>
+<!--        PORTAL LIST ON RIGHT-HAND SIDE        -->
+<ul style="position:absolute; right:-1em; top:50%; margin-top:-2.4em; width:38%; min-width:25em; font-size:95%;">
+<li style="position:absolute; left:0; top:0;">[[Portal:Arts|Arts]]</li>
+<li style="position:absolute; left:0; top:1.6em;">[[Portal:Biography|Biography]]</li>
+<li style="position:absolute; left:0; top:3.2em;">[[Portal:Geography|Geography]]</li>
+<li style="position:absolute; left:33%; top:0;">[[Portal:History|History]]</li>
+<li style="position:absolute; left:33%; top:1.6em;">[[Portal:Mathematics|Mathematics]]</li>
+<li style="position:absolute; left:33%; top:3.2em;">[[Portal:Science|Science]]</li>
+<li style="position:absolute; left:66%; top:0;">[[Portal:Society|Society]]</li>
+<li style="position:absolute; left:66%; top:1.6em;">[[Portal:Technology|Technology]]</li>
+<li style="position:absolute; left:66%; top:3.2em;"><strong>[[Portal:Contents/Portals|All portals]]</strong></li>
+</ul>
+</div>
+<!--        MAIN PAGE BANNER        -->
+{{#if:{{Main Page banner}}|
+<div id="mp-banner" class="MainPageBG" style="margin-top:4px; padding:0.5em; background-color:#fffaf5; border:1px solid #f2e0ce;">
+{{Main Page banner}}
+</div>
+}}
+<!--        TODAY'S FEATURED CONTENT        -->
+{| role="presentation" id="mp-upper" style="width: 100%; margin-top:4px; border-spacing: 0px;"
+<!--        TODAY'S FEATURED ARTICLE; DID YOU KNOW        -->
+| id="mp-left" class="MainPageBG" style="width:55%; border:1px solid #cef2e0; padding:0; background:#f5fffa; vertical-align:top; color:#000;" |
+<h2 id="mp-tfa-h2" style="margin:0.5em; background:#cef2e0; font-family:inherit; font-size:120%; font-weight:bold; border:1px solid #a3bfb1; color:#000; padding:0.2em 0.4em;">{{#ifexpr:{{formatnum:{{PAGESIZE:Wikipedia:Today's featured article/{{#time:F j, Y}}}}|R}}>150|From today's featured article|Featured article <span style="font-size:85%; font-weight:normal;">(Check back later for today's.)</span>}}</h2>
+<div id="mp-tfa" style="padding:0.1em 0.6em;">{{#ifexpr:{{formatnum:{{PAGESIZE:Wikipedia:Today's featured article/{{#time:F j, Y}}}}|R}}>150|{{Wikipedia:Today's featured article/{{#time:F j, Y}}}}|{{Wikipedia:Today's featured article/{{#time:F j, Y|-1 day}}}}}}</div>
+<h2 id="mp-dyk-h2" style="clear:both; margin:0.5em; background:#cef2e0; font-family:inherit; font-size:120%; font-weight:bold; border:1px solid #a3bfb1; color:#000; padding:0.2em 0.4em;">Did you know...</h2>
+<div id="mp-dyk" style="padding:0.1em 0.6em 0.5em;>{{Did you know}}</div>
+| style="border:1px solid transparent;" |
+<!--        IN THE NEWS and ON THIS DAY        -->
+| id="mp-right" class="MainPageBG" style="width:45%; border:1px solid #cedff2; padding:0; background:#f5faff; vertical-align:top;"|
+<h2 id="mp-itn-h2" style="margin:0.5em; background:#cedff2; font-family:inherit; font-size:120%; font-weight:bold; border:1px solid #a3b0bf; color:#000; padding:0.2em 0.4em;">In the news</h2>
+<div id="mp-itn" style="padding:0.1em 0.6em;">{{In the news}}</div>
+<h2 id="mp-otd-h2" style="clear:both; margin:0.5em; background:#cedff2; font-family:inherit; font-size:120%; font-weight:bold; border:1px solid #a3b0bf; color:#000; padding:0.2em 0.4em;">On this day...</h2>
+<div id="mp-otd" style="padding:0.1em 0.6em 0.5em;">{{Wikipedia:Selected anniversaries/{{#time:F j}}}}</div>
+|}
+<!--        TODAY'S FEATURED LIST        --><!-- CONDITIONAL SHOW -->{{#switch:{{CURRENTDAYNAME}}|Monday|Friday=
+<div id="mp-middle" class="MainPageBG" style="margin-top:4px; border:1px solid #f2cedd; background:#fff5fa; overflow:auto;">
+<div id="mp-center">
+<h2 id="mp-tfl-h2" style="margin:0.5em; background:#f2cedd; font-family:inherit; font-size:120%; font-weight:bold; border:1px solid #bfa3af; color:#000; padding:0.2em 0.4em">From today's featured list</h2>
+<div id="mp-tfl" style="padding:0.3em 0.7em;">{{#ifexist:Wikipedia:Today's featured list/{{#time:F j, Y}}|{{Wikipedia:Today's featured list/{{#time:F j, Y}}}}|{{TFLempty}}}}</div>
+</div>
+</div>|}}<!-- END CONDITIONAL SHOW -->
+<!--        TODAY'S FEATURED PICTURE        -->
+<div id="mp-lower" class="MainPageBG" style="margin-top:4px; border:1px solid #ddcef2; background:#faf5ff; overflow:auto;">
+<div id="mp-bottom">
+<h2 id="mp-tfp-h2" style="margin:0.5em; background:#ddcef2; font-family:inherit; font-size:120%; font-weight:bold; border:1px solid #afa3bf; color:#000; padding:0.2em 0.4em">{{#ifexist:Template:POTD protected/{{#time:Y-m-d}}|Today's featured picture | Featured picture&ensp;<span style="font-size:85%; font-weight:normal;">(Check back later for today's.)</span>}}</h2>
+<div id="mp-tfp" style="margin:0.1em 0.4em 0.6em;">{{#ifexist:Template:POTD protected/{{#time:Y-m-d}}|{{POTD protected/{{#time:Y-m-d}}}}|{{POTD protected/{{#time:Y-m-d|-1 day}}}}}}</div>
+</div>
+</div>
+<!--        SECTIONS AT BOTTOM OF PAGE        -->
+<div id="mp-other" style="padding-top:4px; padding-bottom:2px;">
+== Other areas of Wikipedia ==
+{{Other areas of Wikipedia}}
+</div><div id="mp-sister">
+== Wikipedia's sister projects ==
+{{Wikipedia's sister projects}}
+</div><div id="mp-lang">
+== Wikipedia languages ==
+{{Wikipedia languages}}
+</div>
+<!--        INTERWIKI STRAPLINE        -->
+<noinclude>{{Main Page interwikis}}{{noexternallanglinks}}{{#if:{{Wikipedia:Main_Page/Tomorrow}}||}}</noinclude>__NOTOC____NOEDITSECTION__
